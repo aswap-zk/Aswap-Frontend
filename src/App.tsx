@@ -1,13 +1,17 @@
 import GlobalStyle from "./styles/globalStyles";
 import Router from "./components/common/Router";
 import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 function App() {
   return (
-    <RecoilRoot>
-      <GlobalStyle />
-      <Router />
-    </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
+        <GlobalStyle />
+        <Router />
+      </RecoilRoot>
+    </ThemeProvider>
   );
 }
 

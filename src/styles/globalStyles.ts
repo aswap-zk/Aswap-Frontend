@@ -1,4 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
+import Monument from "../assets/fonts/PPMonumentExtended-Regular.otf";
+import Hanson from "../assets/fonts/Hanson-Bold-700.otf";
 
 export const reset = css`
   html,
@@ -138,14 +140,28 @@ export const reset = css`
   }
 `;
 
+const fontStyle = css`
+  @font-face {
+    font-family: "Hanson";
+    font-style: normal;
+    src: local("Hanson"), url(${Hanson});
+  }
+
+  @font-face {
+    font-family: "Monument";
+    font-style: normal;
+    font-weight: 500;
+    src: local("Monument"), url(${Monument});
+  }
+`;
+
 export const GlobalStyle = createGlobalStyle`
 ${reset}
 
-
-
+${fontStyle}
 
 #root, body, html {
-    max-width: 76.8rem;
+    width: 100%;
     height: 100%; 
 
     margin: 0 auto;
