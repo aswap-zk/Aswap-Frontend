@@ -138,6 +138,10 @@ export const reset = css`
   button {
     cursor: pointer;
   }
+  input {
+    outline: none;
+    border: none;
+  }
 `;
 
 const fontStyle = css`

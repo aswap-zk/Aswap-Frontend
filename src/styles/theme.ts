@@ -109,7 +109,7 @@ const fonts = {
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px;
+    line-height: 25px;
   `,
   Label_Large: css`
     font-family: "Montserrat";
@@ -122,7 +122,7 @@ const fonts = {
     font-family: "Montserrat";
     font-size: 12px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 16px;
   `,
   Label_Small: css`
