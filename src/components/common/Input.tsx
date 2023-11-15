@@ -21,19 +21,20 @@ export const INPUTTICKERS: InputTickersType = {
 };
 
 interface InputProps {
-  topLabelText: string; // 상단 라벨
+  topLabelText?: string; // 상단 라벨
   value: string; // input에서 처리할 값
   setValue: (input: string) => void; // 처리값에 대한 set함수
   placeholder: string;
   ticker: InputTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
-  leftLabelTexts: string[]; // 하단 좌측 도움말
-  rightLabelTexts: string[]; // 하단 우측 도움말
+  leftLabelTexts?: string[]; // 하단 좌측 도움말
+  rightLabelTexts?: string[]; // 하단 우측 도움말
+  maxBtnOnClick?: () => void;
 }
 
 export const Input = (props: InputProps) => {
   return (
     <Root>
-      <LargeLabel>{props.topLabelText}</LargeLabel>
+      {props.topLabelText && <LargeLabel>{props.topLabelText}</LargeLabel>}
       <InputWrapper>
         <input
           placeholder={props.placeholder}
@@ -41,21 +42,28 @@ export const Input = (props: InputProps) => {
           onChange={(e) => props.setValue(e.target.value)}
         />
         <TickerWrapper>
+          {props.maxBtnOnClick && (
+            <MaxButton onClick={props.maxBtnOnClick}>MAX</MaxButton>
+          )}
           <img src={props.ticker.image} />
           <span>{props.ticker.name}</span>
         </TickerWrapper>
       </InputWrapper>
       <BottomLabelWrapper>
-        <div>
-          {props.leftLabelTexts.map((text) => {
-            return <span key={text}>{text}</span>;
-          })}
-        </div>
-        <div>
-          {props.rightLabelTexts.map((text) => {
-            return <span key={text}>{text}</span>;
-          })}
-        </div>
+        {props.leftLabelTexts && (
+          <div>
+            {props.leftLabelTexts.map((text) => {
+              return <span key={text}>{text}</span>;
+            })}
+          </div>
+        )}
+        {props.rightLabelTexts && (
+          <div>
+            {props.rightLabelTexts.map((text) => {
+              return <span key={text}>{text}</span>;
+            })}
+          </div>
+        )}
       </BottomLabelWrapper>
     </Root>
   );
@@ -109,6 +117,14 @@ const TickerWrapper = styled.div`
     ${({ theme }) => theme.fonts.Body_Text_Large};
     color: #09090a;
   }
+`;
+
+const MaxButton = styled.div`
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f2faff;
+  ${({ theme }) => theme.fonts.Label_Medium_2};
+  color: #00a3ff;
 `;
 
 const BottomLabelWrapper = styled.div`
