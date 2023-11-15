@@ -12,3 +12,15 @@ export const DarkContentWrapper = styled(ContentWrapper)`
   background-color: #3e404c;
   color: #fff;
 `;
+
+export const SpaceBetweenWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 80px;
+`;

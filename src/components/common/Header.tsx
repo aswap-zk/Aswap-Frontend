@@ -89,7 +89,7 @@ const MenuItem = styled.div`
 `;
 
 const AppMenuItem = styled(MenuItem)<{ $active: boolean }>`
-  color: ${({ $active }) => ($active ? `#15151A` : `#818187`)};
+  color: ${({ $active }) => ($active ? "#15151A" : "#818187")};
 `;
 
 const ConnectBtn = styled.div`

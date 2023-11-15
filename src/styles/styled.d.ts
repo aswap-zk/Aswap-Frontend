@@ -10,7 +10,6 @@ declare module "styled-components" {
       Title_Small: SerializedStyles;
       Image_Title: SerializedStyles;
       Title_Medium: SerializedStyles;
-      Title_Medium_1: SerializedStyles;
       Title_Medium_2: SerializedStyles;
       Body_Text_Large: SerializedStyles;
       Body_Text_Large_2: SerializedStyles;
@@ -20,6 +19,7 @@ declare module "styled-components" {
       Body_Text_Small: SerializedStyles;
       Label_Large: SerializedStyles;
       Label_Medium: SerializedStyles;
+      Label_Medium_2: SerializedStyles;
       Label_Small: SerializedStyles;
       Label_Small_2: SerializedStyles;
     };

@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PageWrapper from "../../components/common/PageWrapper";
 import Header from "../../components/common/Header";
 import PageTitle from "../../components/common/PageTitle";
 import {
+  ButtonWrapper,
   ContentWrapper,
   DarkContentWrapper,
+  SpaceBetweenWrapper,
 } from "../../components/common/ContentWrapper";
 import { useState } from "react";
 import GradientButton from "../../components/common/GradientButton";
@@ -15,9 +16,9 @@ import IcKlay from "../../assets/icons/tokens/ic-klay.svg";
 import IcInvi from "../../assets/icons/tokens/ic-invi.svg";
 import IcChevron from "../../assets/icons/Swap/ic-chevronUp.svg";
 import IcHelp from "../../assets/icons/Swap/ic-helpCircle.svg";
+import CompareTwoTokens from "../../components/common/CompareTwoTokens";
 
 const Swap = () => {
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
   const [fromInput, setFromInput] = useState("");
   const [toInput, setToInput] = useState("");
@@ -41,7 +42,7 @@ const Swap = () => {
     rightLabelTexts: ["Balance", "0.00"],
   };
 
-  function confirmBtnHandler() {}
+  function confirmHandler() {}
 
   return (
     <>
@@ -66,18 +67,12 @@ const Swap = () => {
               <SpaceBetweenWrapper>
                 <MediumText>Total Tokens Locked</MediumText>
               </SpaceBetweenWrapper>
-              <LockedTokensWrapper>
-                <div>
-                  <img src={IcKlay} />
-                  <span>Klay</span>
-                  <span>000,000 K</span>
-                </div>
-                <div>
-                  <img src={IcInvi} />
-                  <span>INVI</span>
-                  <span>000,000 K</span>
-                </div>
-              </LockedTokensWrapper>
+              <CompareTwoTokens
+                tokens={[
+                  { name: "Klay", value: "000,000 K", icon: IcKlay },
+                  { name: "INVI", value: "000,000 K", icon: IcInvi },
+                ]}
+              />
             </PoolInnerWrapper>
           </ContentWrapper>
           <DarkContentWrapper>
@@ -117,7 +112,7 @@ const Swap = () => {
             </AccordionInfoWrapper>
           </DarkContentWrapper>
           <ButtonWrapper>
-            <GradientButton onClick={confirmBtnHandler}>Confirm</GradientButton>
+            <GradientButton onClick={confirmHandler}>Confirm</GradientButton>
           </ButtonWrapper>
         </Container>
       </PageWrapper>
@@ -149,7 +144,7 @@ const IconWrapper = styled.div`
     width: 37px;
     height: 37px;
     margin-top: 16px;
-    filter: drop-shadow(0px 0px 20px rgba(9, 9, 10, 0.1));
+    filter: drop-shadow(0px 0px 10px rgba(9, 9, 10, 0.15));
   }
 `;
 
@@ -161,44 +156,10 @@ const PoolInnerWrapper = styled.div`
   width: 100%;
 `;
 
-const SpaceBetweenWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const MediumText = styled.span`
   ${({ theme }) => theme.fonts.Body_Text_Small};
   padding: 0 10px;
   color: #33343e;
-`;
-
-const LockedTokensWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  padding: 14px 22px;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: -10px;
-
-  border-radius: 30px;
-  background: #f8f8fb;
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    img {
-      width: 18px;
-      height: 18px;
-    }
-    span {
-      ${({ theme }) => theme.fonts.Body_Text_Small};
-      color: #33343e;
-    }
-  }
 `;
 
 const ChevronIcon = styled.img`
@@ -226,9 +187,4 @@ const HelpIconWrapper = styled.div`
 
 const SmallText = styled.span`
   ${({ theme }) => theme.fonts.Label_Medium};
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 80px;
 `;

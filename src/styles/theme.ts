@@ -46,13 +46,6 @@ const fonts = {
     font-weight: 600;
     line-height: 30px;
   `,
-  Title_Medium_1: css`
-    font-family: "Montserrat";
-    font-size: 2px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-  `,
   Title_Medium_2: css`
     font-family: "Montserrat";
     font-size: 22px;
@@ -123,6 +116,13 @@ const fonts = {
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
+    line-height: 16px;
+  `,
+  Label_Medium_2: css`
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
     line-height: 16px;
   `,
   Label_Small: css`
