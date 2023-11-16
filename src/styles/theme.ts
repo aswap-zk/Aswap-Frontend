@@ -18,6 +18,12 @@ const fonts = {
   `,
   Title_Large_2: css`
     font-family: "Montserrat";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+  `,
+  Title_Large_3: css`
+    font-family: "Montserrat";
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -58,7 +64,7 @@ const fonts = {
     font-family: "Montserrat";
     font-size: 18px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 24px; /* 133333% */
     letter-spacing: -0.46px;
   `,
@@ -71,24 +77,23 @@ const fonts = {
   `,
   Body_Text_Large_2: css`
     font-family: "Montserrat";
-    font-size: 17px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
-    line-height: 26px;
   `,
   Body_Text_Medium: css`
     font-family: "Montserrat";
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 26px;
+    line-height: 22px;
   `,
   Body_Text_Medium_2: css`
     font-family: "Montserrat";
     font-size: 14px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 22px;
+    font-weight: 500;
+    line-height: 26px;
   `,
   Body_Text_Medium_3: css`
     font-family: "Montserrat";

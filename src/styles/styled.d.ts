@@ -6,6 +6,7 @@ declare module "styled-components" {
       Headline_Large: SerializedStyles;
       Title_Large: SerializedStyles;
       Title_Large_2: SerializedStyles;
+      Title_Large_3: SerializedStyles;
       Title_Large_Small: SerializedStyles;
       Title_Small: SerializedStyles;
       Image_Title: SerializedStyles;

@@ -12,8 +12,8 @@ import { useState } from "react";
 import GradientButton from "../../components/common/GradientButton";
 import { INPUTTICKERS, Input } from "../../components/common/Input";
 import IcSwap from "../../assets/icons/Swap/ic-swap.svg";
-import IcKlay from "../../assets/icons/tokens/ic-klay.svg";
-import IcInvi from "../../assets/icons/tokens/ic-invi.svg";
+import IcAleo from "../../assets/icons/tokens/ic-aleo.svg";
+import IcWEth from "../../assets/icons/tokens/ic-wEth.svg";
 import IcChevron from "../../assets/icons/Swap/ic-chevronUp.svg";
 import IcHelp from "../../assets/icons/Swap/ic-helpCircle.svg";
 import CompareTwoTokens from "../../components/common/CompareTwoTokens";
@@ -69,15 +69,15 @@ const Swap = () => {
               </SpaceBetweenWrapper>
               <CompareTwoTokens
                 tokens={[
-                  { name: "Klay", value: "000,000 K", icon: IcKlay },
-                  { name: "INVI", value: "000,000 K", icon: IcInvi },
+                  { name: "ALEO", value: "000,000 K", icon: IcAleo },
+                  { name: "wETH", value: "000,000 K", icon: IcWEth },
                 ]}
               />
             </PoolInnerWrapper>
           </ContentWrapper>
           <DarkContentWrapper>
             <SpaceBetweenWrapper>
-              <WrapperTitle>1KLAY = 0.00058 INVI</WrapperTitle>
+              <WrapperTitle>1ALEO = 0.00058 wETH</WrapperTitle>
               <ChevronIcon src={IcChevron} />
             </SpaceBetweenWrapper>
             <AccordionInfoWrapper>
@@ -86,7 +86,7 @@ const Swap = () => {
                   <SmallText>Expected Output</SmallText>
                   <img src={IcHelp} />
                 </HelpIconWrapper>
-                <SmallText>8.84832 KLAY</SmallText>
+                <SmallText>8.84832 ALEO</SmallText>
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
                 <HelpIconWrapper>
@@ -100,7 +100,7 @@ const Swap = () => {
                   <SmallText>Minimum received sfter slippage (5.00%)</SmallText>
                   <img src={IcHelp} />
                 </HelpIconWrapper>
-                <SmallText>8.42697 INVI</SmallText>
+                <SmallText>8.42697 wETH</SmallText>
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
                 <HelpIconWrapper>
