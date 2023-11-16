@@ -25,7 +25,7 @@ interface InputProps {
   value: string; // input에서 처리할 값
   setValue: (input: string) => void; // 처리값에 대한 set함수
   placeholder: string;
-  ticker: InputTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
+  ticker?: InputTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
   leftLabelTexts?: string[]; // 하단 좌측 도움말
   rightLabelTexts?: string[]; // 하단 우측 도움말
   maxBtnOnClick?: () => void;
@@ -45,8 +45,12 @@ export const Input = (props: InputProps) => {
           {props.maxBtnOnClick && (
             <MaxButton onClick={props.maxBtnOnClick}>MAX</MaxButton>
           )}
-          <img src={props.ticker.image} />
-          <span>{props.ticker.name}</span>
+          {props.ticker && (
+            <>
+              <img src={props.ticker.image} />
+              <span>{props.ticker.name}</span>
+            </>
+          )}
         </TickerWrapper>
       </InputWrapper>
       <BottomLabelWrapper>
@@ -139,5 +143,6 @@ const BottomLabelWrapper = styled.div`
   span {
     ${({ theme }) => theme.fonts.Label_Medium};
     color: #4a5967;
+    white-space: pre-line;
   }
 `;

@@ -2,12 +2,15 @@ import styled from "styled-components";
 
 interface PageWrapperProps {
   children: React.ReactNode;
+  maxWidth?: number;
 }
 
 const PageWrapper = (props: PageWrapperProps) => {
   return (
     <Root>
-      <ContentWrapper>{props.children}</ContentWrapper>
+      <ContentWrapper maxWidth={props.maxWidth}>
+        {props.children}
+      </ContentWrapper>
     </Root>
   );
 };
@@ -22,6 +25,6 @@ const Root = styled.div`
   justify-content: center;
 `;
 
-const ContentWrapper = styled.div`
-  width: 450px;
+const ContentWrapper = styled.div<{ maxWidth?: number }>`
+  width: ${({ maxWidth }) => (maxWidth ? maxWidth : 450)}px;
 `;

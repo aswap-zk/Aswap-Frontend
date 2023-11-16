@@ -125,6 +125,13 @@ const fonts = {
     font-weight: 600;
     line-height: 16px;
   `,
+  Label_Medium_3: css`
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+  `,
   Label_Small: css`
     font-family: "Montserrat";
     font-size: 12px;
