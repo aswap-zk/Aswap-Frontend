@@ -47,7 +47,10 @@ export const Input = (props: InputProps) => {
           )}
           {props.ticker && (
             <>
-              <img src={props.ticker.image} />
+              <TickerImage
+                src={props.ticker.image}
+                isAleo={props.ticker.name === "ALEO" ? true : false}
+              />
               <span>{props.ticker.name}</span>
             </>
           )}
@@ -113,14 +116,17 @@ const TickerWrapper = styled.div`
   gap: 7px;
   justify-content: center;
 
-  img {
-    width: 26px;
-    height: 26px;
-  }
   span {
     ${({ theme }) => theme.fonts.Body_Text_Large};
     color: #09090a;
   }
+`;
+
+const TickerImage = styled.img<{ isAleo?: boolean }>`
+  width: 26px;
+  height: 26px;
+  ${({ isAleo }) =>
+    isAleo && "filter: drop-shadow(0px 6px 14px rgba(98, 98, 105, 0.15));"};
 `;
 
 const MaxButton = styled.div`

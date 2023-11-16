@@ -20,10 +20,18 @@ import IcPolygon from "../../assets/icons/Staking/ic-polygonUp.svg";
 
 const POOL_DUMMY = [
   { value: "123,214,354.63" },
-  { value: "12" },
-  { value: "3248" },
-  { value: "48503984" },
-  { value: "20393" },
+  //   { value: "12" },
+  //   { value: "3248" },
+  //   { value: "48503984" },
+  //   { value: "20393" },
+  //   { value: "48503984" },
+  //   { value: "20393" },
+  //   { value: "48503984" },
+  //   { value: "20393" },
+  //   { value: "48503984" },
+  //   { value: "20393" },
+  //   { value: "48503984" },
+  //   { value: "20393" },
 ];
 
 const Staking = () => {
@@ -391,7 +399,7 @@ const PoolStatusList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 10px;
