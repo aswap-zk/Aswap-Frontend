@@ -22,25 +22,36 @@ const Swap = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [fromInput, setFromInput] = useState("");
   const [toInput, setToInput] = useState("");
+  const [targetToken, setTargetToken] = useState([
+    INPUTTICKERS.aleo,
+    INPUTTICKERS.wEth,
+  ]);
 
-  const fromInputProps = {
+  const fromInputProps: InputProps = {
     topLabelText: "From",
     value: fromInput,
     setValue: setFromInput,
     placeholder: "0.00",
-    ticker: INPUTTICKERS.aleo,
+    ticker: targetToken[0],
     leftLabelTexts: ["$ 8.86", "(-0.050%)"],
     rightLabelTexts: ["Balance", "0.00"],
   };
-  const toInputProps = {
+  const toInputProps: InputProps = {
     topLabelText: "To",
     value: toInput,
     setValue: setToInput,
     placeholder: "0.00",
-    ticker: INPUTTICKERS.wEth,
+    ticker: targetToken[1],
     leftLabelTexts: ["$ 8.86", "(-0.050%)"],
     rightLabelTexts: ["Balance", "0.00"],
   };
+
+  function switchHandler() {
+    setTargetToken((prev) => [...prev].reverse());
+    const fromValue = fromInput;
+    setFromInput(toInput);
+    setToInput(fromValue);
+  }
 
   function confirmHandler() {}
 
@@ -52,7 +63,7 @@ const Swap = () => {
         <Container>
           <ContentWrapper>
             <Input {...fromInputProps} />
-            <IconWrapper>
+            <IconWrapper onClick={switchHandler}>
               <img src={IcSwap} />
             </IconWrapper>
             <Input {...toInputProps} />
