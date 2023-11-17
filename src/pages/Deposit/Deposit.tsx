@@ -116,7 +116,7 @@ const Deposit = () => {
             </PoolInnerWrapper>
           </DarkContentWrapper>
           <ButtonWrapper>
-            <GradientButton children={"Confirm"} onClick={confirmHandler} />
+            <GradientButton onClick={confirmHandler}>Confirm</GradientButton>
           </ButtonWrapper>
         </Container>
       </PageWrapper>
