@@ -18,7 +18,7 @@ const CompareTwoTokens = (props: CompareTwoTokensProps) => {
     <LockedTokensWrapper $isDark={isDark ? true : false}>
       {tokens.map((token) => {
         return (
-          <div>
+          <div key={token.name}>
             <img src={token.icon} />
             <span>{token.name}</span>
             <span>{token.value}</span>
