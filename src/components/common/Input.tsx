@@ -50,6 +50,24 @@ export const Input = (props: InputProps) => {
     setSelectedValue,
   } = props;
 
+  function onChangeHandler(value: string) {
+    let inputValue = value;
+    // Remove all commas for processing
+    inputValue = inputValue.replace(/,/g, "");
+
+    // 숫자와 소수점만 입력 가능한 정규식 검사
+    if (!/^[\d.]*$/.test(inputValue)) return;
+
+    // 소수점은 하나만 허용
+    if ((inputValue.match(/\./g) || []).length > 1) return;
+
+    // 숫자는 1,000 단위마다 콤마로 구분
+    const parts = inputValue.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    setValue(parts.join("."));
+  }
+
   return (
     <Root>
       {topLabelText && <LargeLabel>{topLabelText}</LargeLabel>}
@@ -57,7 +75,7 @@ export const Input = (props: InputProps) => {
         <input
           placeholder={placeholder}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => onChangeHandler(e.target.value)}
         />
         <TickerWrapper>
           {maxBtnOnClick && <MaxButton onClick={maxBtnOnClick}>MAX</MaxButton>}
