@@ -8,15 +8,19 @@ import {
   DarkContentWrapper,
   SpaceBetweenWrapper,
 } from "../../components/common/ContentWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GradientButton from "../../components/common/GradientButton";
-import { INPUTTICKERS, Input } from "../../components/common/Input";
+import { INPUTTICKERS, Input, InputProps } from "../../components/common/Input";
 import IcSwap from "../../assets/icons/Swap/ic-swap.svg";
 import IcAleo from "../../assets/icons/tokens/ic-aleo.svg";
 import IcWEth from "../../assets/icons/tokens/ic-wEth.svg";
 import IcChevron from "../../assets/icons/Swap/ic-chevronUp.svg";
 import IcHelp from "../../assets/icons/Swap/ic-helpCircle.svg";
 import CompareTwoTokens from "../../components/common/CompareTwoTokens";
+import {
+  formatNumberWithCommas,
+  parseNumberFromString,
+} from "../../utils/numberFormatter";
 
 const Swap = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,6 +30,11 @@ const Swap = () => {
     INPUTTICKERS.aleo,
     INPUTTICKERS.wEth,
   ]);
+  const aleoToWEthRate = 0.00058;
+
+  useEffect(() => {
+    if (fromInput !== "") inputHandler();
+  }, [fromInput]);
 
   const fromInputProps: InputProps = {
     topLabelText: "From",
@@ -44,7 +53,18 @@ const Swap = () => {
     ticker: targetToken[1],
     leftLabelTexts: ["$ 8.86", "(-0.050%)"],
     rightLabelTexts: ["Balance", "0.00"],
+    readonly: true,
   };
+
+  function inputHandler() {
+    let targetNumber: number = parseNumberFromString(fromInput);
+    if (targetToken[0].name === "ALEO") {
+      targetNumber *= aleoToWEthRate;
+    } else {
+      targetNumber /= aleoToWEthRate;
+    }
+    setToInput(formatNumberWithCommas(targetNumber));
+  }
 
   function switchHandler() {
     setTargetToken((prev) => [...prev].reverse());

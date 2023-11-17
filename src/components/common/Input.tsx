@@ -33,6 +33,7 @@ export interface InputProps {
   selectList?: string[];
   selectedValue?: string;
   setSelectedValue?: (select: string) => void;
+  readonly?: boolean;
 }
 
 export const Input = (props: InputProps) => {
@@ -48,6 +49,7 @@ export const Input = (props: InputProps) => {
     selectList,
     selectedValue,
     setSelectedValue,
+    readonly,
   } = props;
 
   function onChangeHandler(value: string) {
@@ -76,6 +78,10 @@ export const Input = (props: InputProps) => {
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChangeHandler(e.target.value)}
+          readOnly={readonly}
+          style={{
+            cursor: readonly ? "default" : "auto",
+          }}
         />
         <TickerWrapper>
           {maxBtnOnClick && <MaxButton onClick={maxBtnOnClick}>MAX</MaxButton>}
