@@ -21,6 +21,7 @@ import {
   formatNumberWithCommas,
   parseNumberFromString,
 } from "../../utils/numberFormatter";
+import RequestModal from "../../components/common/Modal/RequestModal";
 
 const Swap = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -77,6 +78,7 @@ const Swap = () => {
 
   return (
     <>
+      <RequestModal />
       <Header />
       <PageWrapper>
         <PageTitle>Swap</PageTitle>
