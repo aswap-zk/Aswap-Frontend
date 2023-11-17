@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PageWrapper from "../../components/common/PageWrapper";
 import Header from "../../components/common/Header";
 import PageTitle from "../../components/common/PageTitle";
@@ -107,40 +107,44 @@ const Swap = () => {
             </PoolInnerWrapper>
           </ContentWrapper>
           <DarkContentWrapper>
-            <SpaceBetweenWrapper>
+            <SpaceBetweenWrapper onClick={() => setIsOpen(!isOpen)}>
               <WrapperTitle>1ALEO = 0.00058 wETH</WrapperTitle>
-              <ChevronIcon src={IcChevron} />
+              <ChevronIcon src={IcChevron} isOpen={isOpen} />
             </SpaceBetweenWrapper>
-            <AccordionInfoWrapper>
-              <SpaceBetweenWrapper>
-                <HelpIconWrapper>
-                  <SmallText>Expected Output</SmallText>
-                  <img src={IcHelp} />
-                </HelpIconWrapper>
-                <SmallText>8.84832 ALEO</SmallText>
-              </SpaceBetweenWrapper>
-              <SpaceBetweenWrapper>
-                <HelpIconWrapper>
-                  <SmallText>Price impact</SmallText>
-                  <img src={IcHelp} />
-                </HelpIconWrapper>
-                <SmallText>0.08 %</SmallText>
-              </SpaceBetweenWrapper>
-              <SpaceBetweenWrapper>
-                <HelpIconWrapper>
-                  <SmallText>Minimum received sfter slippage (5.00%)</SmallText>
-                  <img src={IcHelp} />
-                </HelpIconWrapper>
-                <SmallText>8.42697 wETH</SmallText>
-              </SpaceBetweenWrapper>
-              <SpaceBetweenWrapper>
-                <HelpIconWrapper>
-                  <SmallText>Protocol Fee</SmallText>
-                  <img src={IcHelp} />
-                </HelpIconWrapper>
-                <SmallText>Max. %</SmallText>
-              </SpaceBetweenWrapper>
-            </AccordionInfoWrapper>
+            {isOpen && (
+              <AccordionInfoWrapper>
+                <SpaceBetweenWrapper>
+                  <HelpIconWrapper>
+                    <SmallText>Expected Output</SmallText>
+                    <img src={IcHelp} />
+                  </HelpIconWrapper>
+                  <SmallText>8.84832 ALEO</SmallText>
+                </SpaceBetweenWrapper>
+                <SpaceBetweenWrapper>
+                  <HelpIconWrapper>
+                    <SmallText>Price impact</SmallText>
+                    <img src={IcHelp} />
+                  </HelpIconWrapper>
+                  <SmallText>0.08 %</SmallText>
+                </SpaceBetweenWrapper>
+                <SpaceBetweenWrapper>
+                  <HelpIconWrapper>
+                    <SmallText>
+                      Minimum received sfter slippage (5.00%)
+                    </SmallText>
+                    <img src={IcHelp} />
+                  </HelpIconWrapper>
+                  <SmallText>8.42697 wETH</SmallText>
+                </SpaceBetweenWrapper>
+                <SpaceBetweenWrapper>
+                  <HelpIconWrapper>
+                    <SmallText>Protocol Fee</SmallText>
+                    <img src={IcHelp} />
+                  </HelpIconWrapper>
+                  <SmallText>Max. %</SmallText>
+                </SpaceBetweenWrapper>
+              </AccordionInfoWrapper>
+            )}
           </DarkContentWrapper>
           <ButtonWrapper>
             <GradientButton onClick={confirmHandler}>Confirm</GradientButton>
@@ -193,9 +197,11 @@ const MediumText = styled.span`
   color: #33343e;
 `;
 
-const ChevronIcon = styled.img`
+const ChevronIcon = styled.img<{ isOpen: boolean }>`
   width: 24px;
   height: 24px;
+  animation: ${({ isOpen }) => (isOpen ? rotateChevronDown : rotateChevronUp)}
+    0.5s forwards;
 `;
 
 const AccordionInfoWrapper = styled.div`
@@ -218,4 +224,21 @@ const HelpIconWrapper = styled.div`
 
 const SmallText = styled.span`
   ${({ theme }) => theme.fonts.Label_Medium};
+`;
+
+const rotateChevronDown = keyframes`
+    0%{
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+`;
+const rotateChevronUp = keyframes`
+    0%{
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 `;
