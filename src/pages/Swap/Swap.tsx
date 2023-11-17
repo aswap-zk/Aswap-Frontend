@@ -109,7 +109,7 @@ const Swap = () => {
           <DarkContentWrapper>
             <SpaceBetweenWrapper onClick={() => setIsOpen(!isOpen)}>
               <WrapperTitle>1ALEO = 0.00058 wETH</WrapperTitle>
-              <ChevronIcon src={IcChevron} isOpen={isOpen} />
+              <ChevronIcon src={IcChevron} $isOpen={isOpen} />
             </SpaceBetweenWrapper>
             {isOpen && (
               <AccordionInfoWrapper>
@@ -197,10 +197,10 @@ const MediumText = styled.span`
   color: #33343e;
 `;
 
-const ChevronIcon = styled.img<{ isOpen: boolean }>`
+const ChevronIcon = styled.img<{ $isOpen: boolean }>`
   width: 24px;
   height: 24px;
-  animation: ${({ isOpen }) => (isOpen ? rotateChevronDown : rotateChevronUp)}
+  animation: ${({ $isOpen }) => ($isOpen ? rotateChevronDown : rotateChevronUp)}
     0.5s forwards;
 `;
 

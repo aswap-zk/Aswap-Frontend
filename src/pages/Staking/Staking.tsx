@@ -70,7 +70,7 @@ const Staking = () => {
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
                 <TitleMediumText>4,605</TitleMediumText>
-                <Ticker isBig>
+                <Ticker $isBig>
                   <img src={IcAleo} alt="Aleo Icon" />
                   <span>ALEO</span>
                 </Ticker>
@@ -209,7 +209,7 @@ const HelpIcon = styled.img`
   height: 22px;
 `;
 
-const Ticker = styled.div<{ isBig?: boolean }>`
+const Ticker = styled.div<{ $isBig?: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -220,7 +220,7 @@ const Ticker = styled.div<{ isBig?: boolean }>`
   }
   span {
     ${({ theme }) => theme.fonts.Body_Text_Medium_2};
-    ${({ isBig }) => isBig && "font-size: 16px; font-weight: 600;"};
+    ${({ $isBig }) => $isBig && "font-size: 16px; font-weight: 600;"};
   }
 `;
 

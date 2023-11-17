@@ -8,7 +8,7 @@ interface PageWrapperProps {
 const PageWrapper = (props: PageWrapperProps) => {
   return (
     <Root>
-      <ContentWrapper maxWidth={props.maxWidth}>
+      <ContentWrapper $maxWidth={props.maxWidth}>
         {props.children}
       </ContentWrapper>
     </Root>
@@ -25,6 +25,6 @@ const Root = styled.div`
   justify-content: center;
 `;
 
-const ContentWrapper = styled.div<{ maxWidth?: number }>`
-  width: ${({ maxWidth }) => (maxWidth ? maxWidth : 450)}px;
+const ContentWrapper = styled.div<{ $maxWidth?: number }>`
+  width: ${({ $maxWidth }) => ($maxWidth ? $maxWidth : 450)}px;
 `;

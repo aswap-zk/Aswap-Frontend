@@ -95,15 +95,15 @@ const Deposit = () => {
             </PoolInfoTitle>
             <PoolInnerWrapper>
               <SpaceBetweenWrapper>
-                <MediumText isWhite>TVL</MediumText>
-                <MediumText isWhite>251.52$</MediumText>
+                <MediumText $isWhite>TVL</MediumText>
+                <MediumText $isWhite>251.52$</MediumText>
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
-                <MediumText isWhite>Total value utilized</MediumText>
-                <MediumText isWhite>5,222,605.75 ALEO</MediumText>
+                <MediumText $isWhite>Total value utilized</MediumText>
+                <MediumText $isWhite>5,222,605.75 ALEO</MediumText>
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
-                <MediumText isWhite>Total Tokens Locked</MediumText>
+                <MediumText $isWhite>Total Tokens Locked</MediumText>
                 <SmallText>1wETH ≈ 0.00058 ALEO</SmallText>
               </SpaceBetweenWrapper>
               <CompareTwoTokens
@@ -176,10 +176,10 @@ const InputsWrapper = styled.div`
   margin-bottom: 35px;
 `;
 
-const MediumText = styled.span<{ isWhite?: boolean }>`
+const MediumText = styled.span<{ $isWhite?: boolean }>`
   ${({ theme }) => theme.fonts.Body_Text_Small};
-  color: ${({ isWhite }) => (isWhite ? "#fff" : "#4A5967")};
-  ${({ isWhite }) => isWhite && "padding: 0 4px"};
+  color: ${({ $isWhite }) => ($isWhite ? "#fff" : "#4A5967")};
+  ${({ $isWhite }) => $isWhite && "padding: 0 4px"};
 `;
 
 const SmallText = styled.span`

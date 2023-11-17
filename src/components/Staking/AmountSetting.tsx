@@ -27,7 +27,7 @@ const AmountSetting = () => {
         </SpaceBetweenWrapper>
         <SpaceBetweenWrapper>
           <TitleMediumText>4,605</TitleMediumText>
-          <Ticker isBig>
+          <Ticker $isBig>
             <img src={IcAleo} alt="Aleo Icon" />
             <span>ALEO</span>
           </Ticker>
@@ -90,7 +90,7 @@ const TitleMediumText = styled.span`
   ${({ theme }) => theme.fonts.Title_Medium};
 `;
 
-const Ticker = styled.div<{ isBig?: boolean }>`
+const Ticker = styled.div<{ $isBig?: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -101,7 +101,7 @@ const Ticker = styled.div<{ isBig?: boolean }>`
   }
   span {
     ${({ theme }) => theme.fonts.Body_Text_Large};
-    ${({ isBig }) => !isBig && "font-size: 14px; font-weight: 500;"};
+    ${({ $isBig }) => !$isBig && "font-size: 14px; font-weight: 500;"};
   }
 `;
 

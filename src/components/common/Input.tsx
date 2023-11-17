@@ -89,7 +89,7 @@ export const Input = (props: InputProps) => {
             <>
               <TickerImage
                 src={ticker.image}
-                isAleo={ticker.name === "ALEO" ? true : false}
+                $isAleo={ticker.name === "ALEO" ? true : false}
               />
               <span>{ticker.name}</span>
             </>
@@ -180,11 +180,11 @@ const TickerWrapper = styled.div`
   }
 `;
 
-const TickerImage = styled.img<{ isAleo?: boolean }>`
+const TickerImage = styled.img<{ $isAleo?: boolean }>`
   width: 26px;
   height: 26px;
-  ${({ isAleo }) =>
-    isAleo && "filter: drop-shadow(0px 6px 14px rgba(98, 98, 105, 0.15));"};
+  ${({ $isAleo }) =>
+    $isAleo && "filter: drop-shadow(0px 6px 14px rgba(98, 98, 105, 0.15));"};
 `;
 
 const MaxButton = styled.div`

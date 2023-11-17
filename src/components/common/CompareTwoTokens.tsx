@@ -15,7 +15,7 @@ const CompareTwoTokens = (props: CompareTwoTokensProps) => {
   const { tokens, isDark } = props;
 
   return (
-    <LockedTokensWrapper isDark={isDark ? true : false}>
+    <LockedTokensWrapper $isDark={isDark ? true : false}>
       {tokens.map((token) => {
         return (
           <div>
@@ -31,7 +31,7 @@ const CompareTwoTokens = (props: CompareTwoTokensProps) => {
 
 export default CompareTwoTokens;
 
-const LockedTokensWrapper = styled.div<{ isDark: boolean }>`
+const LockedTokensWrapper = styled.div<{ $isDark: boolean }>`
   width: 100%;
   display: flex;
   padding: 14px 22px;
@@ -39,7 +39,7 @@ const LockedTokensWrapper = styled.div<{ isDark: boolean }>`
   align-items: center;
 
   border-radius: 30px;
-  background: ${({ isDark }) => (isDark ? `#33343E` : `#f8f8fb`)};
+  background: ${({ $isDark }) => ($isDark ? `#33343E` : `#f8f8fb`)};
 
   div {
     display: flex;
@@ -52,7 +52,7 @@ const LockedTokensWrapper = styled.div<{ isDark: boolean }>`
     }
     span {
       ${({ theme }) => theme.fonts.Body_Text_Small};
-      color: ${({ isDark }) => (isDark ? `#fff` : `#33343e`)};
+      color: ${({ $isDark }) => ($isDark ? `#fff` : `#33343e`)};
     }
   }
 `;
