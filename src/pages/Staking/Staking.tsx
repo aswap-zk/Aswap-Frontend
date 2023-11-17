@@ -12,7 +12,7 @@ import GradientButton from "../../components/common/GradientButton";
 import IcHelp from "../../assets/icons/Swap/ic-helpCircle.svg";
 import IcAleo from "../../assets/icons/tokens/ic-aleo.svg";
 import { useState } from "react";
-import { Input } from "../../components/common/Input";
+import { Input, InputProps } from "../../components/common/Input";
 import IcSwitch from "../../assets/icons/Staking/ic-arrowSwitch.svg";
 import IcArrowUpRight from "../../assets/icons/Staking/ic-arrowUpRight.svg";
 import Lv99 from "../../assets/images/img-lv99Profile.png";
@@ -36,16 +36,21 @@ const POOL_DUMMY = [
 
 const Staking = () => {
   const [amountInput, setAmountInput] = useState("");
+  const [selectedToken, setSelectedToken] = useState("ALEO");
 
+  const selectTokenList = ["KLAY", "wETH", "ALEO"];
   const DarkWrapperShadow = {
     boxShadow:
       "5px 7px 20px 0px rgba(0, 0, 0, 0.10), 20px 30px 36px 0px rgba(0, 0, 0, 0.09), 46px 67px 49px 0px rgba(0, 0, 0, 0.05), 81px 119px 58px 0px rgba(0, 0, 0, 0.01), 127px 186px 63px 0px rgba(0, 0, 0, 0.00)",
   };
-  const amountInputProps = {
+  const amountInputProps: InputProps = {
     value: amountInput,
     setValue: setAmountInput,
     placeholder: "0.00",
     maxBtnOnClick: amountMaxHandler,
+    selectList: selectTokenList,
+    selectedValue: selectedToken,
+    setSelectedValue: setSelectedToken,
   };
 
   function amountMaxHandler() {}

@@ -4,6 +4,7 @@ import IcWEth from "../../assets/icons/tokens/ic-wEth.svg";
 import IcEth from "../../assets/icons/tokens/ic-eth.svg";
 import IcKlay from "../../assets/icons/tokens/ic-klay.svg";
 import IcInvi from "../../assets/icons/tokens/ic-invi.svg";
+import IcChevron from "../../assets/icons/Staking/ic-chevronDown.svg";
 
 interface InputTicker {
   image: string;
@@ -20,7 +21,7 @@ export const INPUTTICKERS: InputTickersType = {
   invi: { image: IcInvi, name: "INVI" },
 };
 
-interface InputProps {
+export interface InputProps {
   topLabelText?: string; // 상단 라벨
   value: string; // input에서 처리할 값
   setValue: (input: string) => void; // 처리값에 대한 set함수
@@ -29,44 +30,76 @@ interface InputProps {
   leftLabelTexts?: string[]; // 하단 좌측 도움말
   rightLabelTexts?: string[]; // 하단 우측 도움말
   maxBtnOnClick?: () => void;
+  selectList?: string[];
+  selectedValue?: string;
+  setSelectedValue?: (select: string) => void;
 }
 
 export const Input = (props: InputProps) => {
+  const {
+    topLabelText,
+    value,
+    setValue,
+    placeholder,
+    ticker,
+    leftLabelTexts,
+    rightLabelTexts,
+    maxBtnOnClick,
+    selectList,
+    selectedValue,
+    setSelectedValue,
+  } = props;
+
   return (
     <Root>
-      {props.topLabelText && <LargeLabel>{props.topLabelText}</LargeLabel>}
+      {topLabelText && <LargeLabel>{topLabelText}</LargeLabel>}
       <InputWrapper>
         <input
-          placeholder={props.placeholder}
-          value={props.value}
-          onChange={(e) => props.setValue(e.target.value)}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
         <TickerWrapper>
-          {props.maxBtnOnClick && (
-            <MaxButton onClick={props.maxBtnOnClick}>MAX</MaxButton>
-          )}
-          {props.ticker && (
+          {maxBtnOnClick && <MaxButton onClick={maxBtnOnClick}>MAX</MaxButton>}
+          {ticker && (
             <>
               <TickerImage
-                src={props.ticker.image}
-                isAleo={props.ticker.name === "ALEO" ? true : false}
+                src={ticker.image}
+                isAleo={ticker.name === "ALEO" ? true : false}
               />
-              <span>{props.ticker.name}</span>
+              <span>{ticker.name}</span>
             </>
+          )}
+          {selectList && setSelectedValue && (
+            <SelectWrapper>
+              <StyledSelect
+                onChange={(e) => {
+                  setSelectedValue(e.target.value);
+                }}
+                value={selectedValue}
+              >
+                {selectList.map((item) => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
+              </StyledSelect>
+              <img src={IcChevron} />
+            </SelectWrapper>
           )}
         </TickerWrapper>
       </InputWrapper>
       <BottomLabelWrapper>
-        {props.leftLabelTexts && (
+        {leftLabelTexts && (
           <div>
-            {props.leftLabelTexts.map((text) => {
+            {leftLabelTexts.map((text) => {
               return <span key={text}>{text}</span>;
             })}
           </div>
         )}
-        {props.rightLabelTexts && (
+        {rightLabelTexts && (
           <div>
-            {props.rightLabelTexts.map((text) => {
+            {rightLabelTexts.map((text) => {
               return <span key={text}>{text}</span>;
             })}
           </div>
@@ -115,6 +148,7 @@ const TickerWrapper = styled.div`
   display: flex;
   gap: 7px;
   justify-content: center;
+  align-items: center;
 
   span {
     ${({ theme }) => theme.fonts.Body_Text_Large};
@@ -150,5 +184,35 @@ const BottomLabelWrapper = styled.div`
     ${({ theme }) => theme.fonts.Label_Medium};
     color: #4a5967;
     white-space: pre-line;
+  }
+`;
+
+const SelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0px 12px;
+
+  border-radius: 20px;
+  border: 1px solid #e8e8ee;
+  background: #fff;
+  box-shadow: 0px 2px 10px 0px rgba(184, 184, 184, 0.3);
+  ${({ theme }) => theme.fonts.Body_Text_Large};
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const StyledSelect = styled.select`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearence: none;
+  border: none;
+  ${({ theme }) => theme.fonts.Body_Text_Large};
+  padding: 6px 2px;
+  &:focus {
+    outline: none;
   }
 `;
