@@ -14,13 +14,15 @@ interface ApprovedModalProps {
   type: string;
   amount: ValueWithToken[];
   estimated?: ValueWithToken;
+  closeModalHandler: () => void;
+  confirmHandler: () => void;
 }
 
 const ApprovedModal = (props: ApprovedModalProps) => {
-  const { type, amount, estimated } = props;
+  const { type, amount, estimated, closeModalHandler, confirmHandler } = props;
 
   return (
-    <ModalWrapper>
+    <ModalWrapper closeModalHandler={closeModalHandler}>
       <Container>
         <SpaceBetweenWrapper $direction="column" style={{ minHeight: "430px" }}>
           <MainContentWrapper>
@@ -72,7 +74,14 @@ const ApprovedModal = (props: ApprovedModalProps) => {
           <ButtonContainer>
             <GrayButton>Approve</GrayButton>
             <img src={IcButtonPolygon} />
-            <BlueButton>{type}</BlueButton>
+            <BlueButton
+              onClick={(event) => {
+                event.stopPropagation();
+                confirmHandler();
+              }}
+            >
+              {type}
+            </BlueButton>
           </ButtonContainer>
         </SpaceBetweenWrapper>
       </Container>

@@ -51,16 +51,30 @@ const Deposit = () => {
   function wEthMaxHandler() {}
   function aleoMaxHandler() {}
   function confirmHandler() {
+    console.log("Confirm");
     setModalType("request");
   }
   function modalApprovedHandler() {
+    console.log("Approved");
     setModalType("approved");
+  }
+  function modalConfirmHanler() {
+    console.log("Confirm");
+    setModalType("");
+  }
+  function closeModalHandler() {
+    console.log("Close");
+    setModalType("");
   }
 
   return (
     <>
       {modalType === "request" && (
-        <RequestModal type="Deposit" approvedHandler={modalApprovedHandler} />
+        <RequestModal
+          type="Deposit"
+          approvedHandler={modalApprovedHandler}
+          closeModalHandler={closeModalHandler}
+        />
       )}
       {modalType === "approved" && (
         <ApprovedModal
@@ -69,6 +83,8 @@ const Deposit = () => {
             { value: "23.03", ticker: INPUTTICKERS.aleo },
             { value: "23.03", ticker: INPUTTICKERS.wEth },
           ]}
+          closeModalHandler={closeModalHandler}
+          confirmHandler={modalConfirmHanler}
         />
       )}
       <Header />

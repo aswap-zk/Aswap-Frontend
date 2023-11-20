@@ -78,22 +78,38 @@ const Swap = () => {
   }
 
   function confirmHandler() {
+    console.log("Confirm");
     setModalType("request");
   }
   function modalApprovedHandler() {
+    console.log("Approved");
     setModalType("approved");
+  }
+  function modalConfirmHanler() {
+    console.log("Confirm");
+    setModalType("");
+  }
+  function closeModalHandler() {
+    console.log("Close");
+    setModalType("");
   }
 
   return (
     <>
       {modalType === "request" && (
-        <RequestModal type="Swap" approvedHandler={modalApprovedHandler} />
+        <RequestModal
+          type="Swap"
+          approvedHandler={modalApprovedHandler}
+          closeModalHandler={closeModalHandler}
+        />
       )}
       {modalType === "approved" && (
         <ApprovedModal
           type="Swap"
           amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
           estimated={{ value: "23.03", ticker: INPUTTICKERS.wEth }}
+          closeModalHandler={closeModalHandler}
+          confirmHandler={modalConfirmHanler}
         />
       )}
       <Header />

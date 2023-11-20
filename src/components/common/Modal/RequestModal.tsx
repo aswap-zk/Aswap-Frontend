@@ -7,13 +7,14 @@ import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonRequest
 interface RequestModalProps {
   type: string;
   approvedHandler: () => void;
+  closeModalHandler: () => void;
 }
 
 const RequestModal = (props: RequestModalProps) => {
-  const { type, approvedHandler } = props;
+  const { type, approvedHandler, closeModalHandler } = props;
 
   return (
-    <ModalWrapper>
+    <ModalWrapper closeModalHandler={closeModalHandler}>
       <Container>
         <MainContentWrapper>
           <TitleWrapper>
@@ -45,7 +46,14 @@ const RequestModal = (props: RequestModalProps) => {
           </SubText>
         </InfoWrapper>
         <ButtonContainer>
-          <BlueButton onClick={approvedHandler}>Approve</BlueButton>
+          <BlueButton
+            onClick={(event) => {
+              event.stopPropagation();
+              approvedHandler();
+            }}
+          >
+            Approve
+          </BlueButton>
           <img src={IcButtonPolygon} />
           <GrayButton>{type}</GrayButton>
         </ButtonContainer>

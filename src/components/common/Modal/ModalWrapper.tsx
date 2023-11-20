@@ -3,10 +3,11 @@ import { styled } from "styled-components";
 
 interface ModalWrapperProps {
   children: ReactNode;
+  closeModalHandler: () => void;
 }
 
-function ModalWrapper({ children }: ModalWrapperProps) {
-  return <Container>{children}</Container>;
+function ModalWrapper({ children, closeModalHandler }: ModalWrapperProps) {
+  return <Container onClick={() => closeModalHandler()}>{children}</Container>;
 }
 
 export default ModalWrapper;

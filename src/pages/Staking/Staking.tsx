@@ -59,21 +59,37 @@ const Staking = () => {
 
   function amountMaxHandler() {}
   function confirmHandler() {
+    console.log("Confirm");
     setModalType("request");
   }
   function modalApprovedHandler() {
+    console.log("Approved");
     setModalType("approved");
+  }
+  function modalConfirmHanler() {
+    console.log("Confirm");
+    setModalType("");
+  }
+  function closeModalHandler() {
+    console.log("Close");
+    setModalType("");
   }
 
   return (
     <>
       {modalType === "request" && (
-        <RequestModal type="Staking" approvedHandler={modalApprovedHandler} />
+        <RequestModal
+          type="Staking"
+          approvedHandler={modalApprovedHandler}
+          closeModalHandler={closeModalHandler}
+        />
       )}
       {modalType === "approved" && (
         <ApprovedModal
           type="Staking"
           amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
+          closeModalHandler={closeModalHandler}
+          confirmHandler={modalConfirmHanler}
         />
       )}
       <Header />
