@@ -104,4 +104,5 @@ const Button = styled.div`
 
   color: #fff;
   ${({ theme }) => theme.fonts.Title_Medium};
+  cursor: pointer;
 `;

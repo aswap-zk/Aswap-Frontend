@@ -19,13 +19,13 @@ const Header = (props: HeaderProps) => {
         <MenuWrapper>
           {type === "intro" ? (
             <>
-              <Logo src={LogoWhite} />
+              <Logo src={LogoWhite} onClick={() => navigate("/")} />
               <MenuItem>Docs</MenuItem>
               <MenuItem>LV99</MenuItem>
             </>
           ) : (
             <>
-              <Logo src={LogoBlack} />
+              <Logo src={LogoBlack} onClick={() => navigate("/")} />
               <AppMenuItem
                 onClick={() => navigate("/swap")}
                 $active={pathname.includes("swap") ? true : false}
@@ -80,6 +80,7 @@ const MenuWrapper = styled.div`
 
 const Logo = styled.img`
   height: 28px;
+  cursor: pointer;
 `;
 
 const MenuItem = styled.div`
@@ -90,6 +91,7 @@ const MenuItem = styled.div`
 
 const AppMenuItem = styled(MenuItem)<{ $active: boolean }>`
   color: ${({ $active }) => ($active ? "#15151A" : "#818187")};
+  cursor: pointer;
 `;
 
 const ConnectBtn = styled.div`
