@@ -50,11 +50,18 @@ const Deposit = () => {
 
   function wEthMaxHandler() {}
   function aleoMaxHandler() {}
-  function confirmHandler() {}
+  function confirmHandler() {
+    setModalType("request");
+  }
+  function modalApprovedHandler() {
+    setModalType("approved");
+  }
 
   return (
     <>
-      {modalType === "request" && <RequestModal type="Deposit" />}
+      {modalType === "request" && (
+        <RequestModal type="Deposit" approvedHandler={modalApprovedHandler} />
+      )}
       {modalType === "approved" && (
         <ApprovedModal
           type="Deposit"

@@ -77,11 +77,18 @@ const Swap = () => {
     setToInput(fromValue);
   }
 
-  function confirmHandler() {}
+  function confirmHandler() {
+    setModalType("request");
+  }
+  function modalApprovedHandler() {
+    setModalType("approved");
+  }
 
   return (
     <>
-      {modalType === "request" && <RequestModal type="Swap" />}
+      {modalType === "request" && (
+        <RequestModal type="Swap" approvedHandler={modalApprovedHandler} />
+      )}
       {modalType === "approved" && (
         <ApprovedModal
           type="Swap"

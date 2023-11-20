@@ -58,11 +58,18 @@ const Staking = () => {
   };
 
   function amountMaxHandler() {}
-  function confirmHandler() {}
+  function confirmHandler() {
+    setModalType("request");
+  }
+  function modalApprovedHandler() {
+    setModalType("approved");
+  }
 
   return (
     <>
-      {modalType === "request" && <RequestModal type="Staking" />}
+      {modalType === "request" && (
+        <RequestModal type="Staking" approvedHandler={modalApprovedHandler} />
+      )}
       {modalType === "approved" && (
         <ApprovedModal
           type="Staking"

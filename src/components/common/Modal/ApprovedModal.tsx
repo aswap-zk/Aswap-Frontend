@@ -142,6 +142,7 @@ const BlueButton = styled.div`
   border-radius: 0 10px 10px 0;
   color: #fff;
   background-color: #657dfa;
+  cursor: pointer;
 `;
 const GrayButton = styled.div`
   border-radius: 10px 0 0 10px;
