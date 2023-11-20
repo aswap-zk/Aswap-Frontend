@@ -25,7 +25,7 @@ export interface InputProps {
   topLabelText?: string; // 상단 라벨
   value: string; // input에서 처리할 값
   setValue: (input: string) => void; // 처리값에 대한 set함수
-  placeholder: string;
+  placeholder?: string;
   ticker?: InputTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
   leftLabelTexts?: string[]; // 하단 좌측 도움말
   rightLabelTexts?: string[]; // 하단 우측 도움말

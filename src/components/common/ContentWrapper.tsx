@@ -13,11 +13,13 @@ export const DarkContentWrapper = styled(ContentWrapper)`
   color: #fff;
 `;
 
-export const SpaceBetweenWrapper = styled.div`
+export const SpaceBetweenWrapper = styled.div<{ $direction?: string }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${({ $direction }) =>
+    $direction === "column" && "flex-direction: column; align-items: stretch;"};
 `;
 
 export const ButtonWrapper = styled.div`

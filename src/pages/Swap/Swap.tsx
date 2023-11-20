@@ -22,6 +22,7 @@ import {
   parseNumberFromString,
 } from "../../utils/numberFormatter";
 import RequestModal from "../../components/common/Modal/RequestModal";
+import ApprovedModal from "../../components/common/Modal/ApprovedModal";
 
 const Swap = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -31,6 +32,8 @@ const Swap = () => {
     INPUTTICKERS.aleo,
     INPUTTICKERS.wEth,
   ]);
+  const [modalType, setModalType] = useState("approved");
+
   const aleoToWEthRate = 0.00058;
 
   useEffect(() => {
@@ -78,7 +81,8 @@ const Swap = () => {
 
   return (
     <>
-      <RequestModal />
+      {modalType === "request" && <RequestModal type="Swap" />}
+      {modalType === "approved" && <ApprovedModal type="Swap" />}
       <Header />
       <PageWrapper>
         <PageTitle>Swap</PageTitle>
