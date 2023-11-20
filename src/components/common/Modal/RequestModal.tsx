@@ -4,7 +4,13 @@ import { SpaceBetweenWrapper } from "../ContentWrapper";
 import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
 import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonRequest.svg";
 
-const RequestModal = () => {
+interface RequestModalProps {
+  type: string;
+}
+
+const RequestModal = (props: RequestModalProps) => {
+  const { type } = props;
+
   return (
     <ModalWrapper>
       <Container>
@@ -40,7 +46,7 @@ const RequestModal = () => {
         <ButtonContainer>
           <BlueButton>Approve</BlueButton>
           <img src={IcButtonPolygon} />
-          <GrayButton>Swap</GrayButton>
+          <GrayButton>{type}</GrayButton>
         </ButtonContainer>
       </Container>
     </ModalWrapper>
@@ -79,7 +85,7 @@ const MainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 40px 40px;
+  padding: 40px;
 `;
 
 const TitleWrapper = styled.div`
