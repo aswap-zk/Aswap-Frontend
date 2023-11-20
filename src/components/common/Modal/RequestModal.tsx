@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import { SpaceBetweenWrapper } from "../ContentWrapper";
 import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
+import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonRequest.svg";
 
 const RequestModal = () => {
   return (
@@ -36,6 +37,11 @@ const RequestModal = () => {
             before the deposit service.
           </SubText>
         </InfoWrapper>
+        <ButtonContainer>
+          <BlueButton>Approve</BlueButton>
+          <img src={IcButtonPolygon} />
+          <GrayButton>Swap</GrayButton>
+        </ButtonContainer>
       </Container>
     </ModalWrapper>
   );
@@ -45,7 +51,12 @@ export default RequestModal;
 
 const Container = styled.div`
   width: 450px;
-  height: 450px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   border-radius: 20px;
   background-color: #fff;
 `;
@@ -94,4 +105,31 @@ const InfoTitleWithIconWrapper = styled.div`
     width: 16px;
     height: 16px;
   }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 14px 23px 22px 23px;
+
+  div {
+    flex: 1;
+    padding: 14px 18px;
+    text-align: center;
+    ${({ theme }) => theme.fonts.Body_Text_Large};
+  }
+
+  img {
+    width: 54px;
+  }
+`;
+
+const BlueButton = styled.div`
+  border-radius: 10px 0 0 10px;
+  color: #fff;
+  background-color: #657dfa;
+`;
+const GrayButton = styled.div`
+  border-radius: 0 10px 10px 0;
+  color: #e8e8ee;
+  background-color: #33343e;
 `;
