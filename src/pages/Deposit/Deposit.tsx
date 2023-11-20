@@ -20,11 +20,14 @@ import CompareTwoTokens from "../../components/common/CompareTwoTokens";
 import IcWEth from "../../assets/icons/tokens/ic-wEth.svg";
 import IcAleo from "../../assets/icons/tokens/ic-aleo.svg";
 import IcWind from "../../assets/icons/Deposit/ic-wind.svg";
+import RequestModal from "../../components/common/Modal/RequestModal";
+import ApprovedModal from "../../components/common/Modal/ApprovedModal";
 
 const Deposit = () => {
   const { pathname } = useLocation();
   const [wEthInput, setWEthInput] = useState("");
   const [aleoInput, setAleoInput] = useState("");
+  const [modalType, setModalType] = useState("");
 
   const wEthInputProps = {
     value: wEthInput,
@@ -51,6 +54,16 @@ const Deposit = () => {
 
   return (
     <>
+      {modalType === "request" && <RequestModal type="Deposit" />}
+      {modalType === "approved" && (
+        <ApprovedModal
+          type="Deposit"
+          amount={[
+            { value: "23.03", ticker: INPUTTICKERS.aleo },
+            { value: "23.03", ticker: INPUTTICKERS.wEth },
+          ]}
+        />
+      )}
       <Header />
       <PageWrapper>
         <PageTitle>Deposit</PageTitle>

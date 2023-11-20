@@ -32,7 +32,7 @@ const Swap = () => {
     INPUTTICKERS.aleo,
     INPUTTICKERS.wEth,
   ]);
-  const [modalType, setModalType] = useState("approved");
+  const [modalType, setModalType] = useState("");
 
   const aleoToWEthRate = 0.00058;
 
@@ -82,7 +82,13 @@ const Swap = () => {
   return (
     <>
       {modalType === "request" && <RequestModal type="Swap" />}
-      {modalType === "approved" && <ApprovedModal type="Swap" />}
+      {modalType === "approved" && (
+        <ApprovedModal
+          type="Swap"
+          amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
+          estimated={{ value: "23.03", ticker: INPUTTICKERS.wEth }}
+        />
+      )}
       <Header />
       <PageWrapper>
         <PageTitle>Swap</PageTitle>

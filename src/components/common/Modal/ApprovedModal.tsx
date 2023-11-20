@@ -4,40 +4,69 @@ import { SpaceBetweenWrapper } from "../ContentWrapper";
 import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
 import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonApproved.svg";
 import { INPUTTICKERS, Input } from "../Input";
+import { TokenTicker } from "../../../types/TokenTicker";
 
+interface ValueWithToken {
+  value: string;
+  ticker: TokenTicker;
+}
 interface ApprovedModalProps {
   type: string;
+  amount: ValueWithToken[];
+  estimated?: ValueWithToken;
 }
 
 const ApprovedModal = (props: ApprovedModalProps) => {
-  const { type } = props;
+  const { type, amount, estimated } = props;
 
   return (
     <ModalWrapper>
       <Container>
-        <SpaceBetweenWrapper $direction="column">
+        <SpaceBetweenWrapper $direction="column" style={{ minHeight: "430px" }}>
           <MainContentWrapper>
             <TitleWrapper>
               <TitleText>
                 {type === "Deposit" ? "Depositing tokens" : `${type} Token`}
               </TitleText>
             </TitleWrapper>
-            <TitleWrapper>
-              <Input
-                topLabelText={"Amount"}
-                value="23.03"
-                setValue={() => {}}
-                ticker={INPUTTICKERS.aleo}
-                readonly
-              />
-              <Input
-                topLabelText={"Amount"}
-                value="23.03"
-                setValue={() => {}}
-                ticker={INPUTTICKERS.wEth}
-                readonly
-              />
-            </TitleWrapper>
+            <div>
+              {amount.length > 1 ? (
+                <>
+                  <AmountLabel>Amount</AmountLabel>
+                  <ValueWrapper>
+                    {amount.map((item) => (
+                      <ValueItem>
+                        <span>{item.value}</span>
+                        <TickerWrapper>
+                          <TickerImage
+                            src={item.ticker.image}
+                            $isAleo={item.ticker.name === "ALEO" ? true : false}
+                          />
+                          <span>{item.ticker.name}</span>
+                        </TickerWrapper>
+                      </ValueItem>
+                    ))}
+                  </ValueWrapper>
+                </>
+              ) : (
+                <Input
+                  topLabelText={"Amount"}
+                  value={amount[0].value}
+                  setValue={() => {}}
+                  ticker={amount[0].ticker}
+                  readonly
+                />
+              )}
+              {estimated && (
+                <Input
+                  topLabelText={"Estimated"}
+                  value={estimated.value}
+                  setValue={() => {}}
+                  ticker={estimated.ticker}
+                  readonly
+                />
+              )}
+            </div>
           </MainContentWrapper>
 
           <ButtonContainer>
@@ -55,6 +84,7 @@ export default ApprovedModal;
 
 const Container = styled.div`
   width: 450px;
+  min-height: 430px;
 
   position: absolute;
   left: 50%;
@@ -92,25 +122,6 @@ const TitleWrapper = styled.div`
   gap: 10px;
 `;
 
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 20px 40px;
-  background-color: #f8f8fb;
-`;
-
-const InfoTitleWithIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  img {
-    width: 16px;
-    height: 16px;
-  }
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   margin: 23px 23px 22px 23px;
@@ -136,4 +147,54 @@ const GrayButton = styled.div`
   border-radius: 10px 0 0 10px;
   color: #e8e8ee;
   background-color: #33343e;
+`;
+
+const AmountLabel = styled.div`
+  color: #33343e;
+  ${({ theme }) => theme.fonts.Body_Text_Medium_2};
+  padding-left: 10px;
+  margin-bottom: 10px;
+`;
+
+const ValueWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 22px 24px 30px;
+  border-radius: 20px;
+  border: 1px solid #d1d1d1;
+  margin-bottom: 10px;
+`;
+
+const ValueItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    width: 100%;
+    ${({ theme }) => theme.fonts.Title_Large};
+    color: #15151a;
+    outline: none;
+    border: none;
+  }
+`;
+
+const TickerWrapper = styled.div`
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    ${({ theme }) => theme.fonts.Body_Text_Large};
+    color: #09090a;
+  }
+`;
+
+const TickerImage = styled.img<{ $isAleo?: boolean }>`
+  width: 26px;
+  height: 26px;
+  ${({ $isAleo }) =>
+    $isAleo && "filter: drop-shadow(0px 6px 14px rgba(98, 98, 105, 0.15));"};
 `;

@@ -17,6 +17,9 @@ import IcSwitch from "../../assets/icons/Staking/ic-arrowSwitch.svg";
 import IcArrowUpRight from "../../assets/icons/Staking/ic-arrowUpRight.svg";
 import Lv99 from "../../assets/images/img-lv99Profile.png";
 import IcPolygon from "../../assets/icons/Staking/ic-polygonUp.svg";
+import RequestModal from "../../components/common/Modal/RequestModal";
+import ApprovedModal from "../../components/common/Modal/ApprovedModal";
+import { INPUTTICKERS } from "../../components/common/Input";
 
 const POOL_DUMMY = [
   { value: "123,214,354.63" },
@@ -37,6 +40,7 @@ const POOL_DUMMY = [
 const Staking = () => {
   const [amountInput, setAmountInput] = useState("");
   const [selectedToken, setSelectedToken] = useState("ALEO");
+  const [modalType, setModalType] = useState("");
 
   const selectTokenList = ["KLAY", "wETH", "ALEO"];
   const DarkWrapperShadow = {
@@ -58,6 +62,13 @@ const Staking = () => {
 
   return (
     <>
+      {modalType === "request" && <RequestModal type="Staking" />}
+      {modalType === "approved" && (
+        <ApprovedModal
+          type="Staking"
+          amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
+        />
+      )}
       <Header />
       <PageWrapper maxWidth={520}>
         <PageTitle>Staking</PageTitle>

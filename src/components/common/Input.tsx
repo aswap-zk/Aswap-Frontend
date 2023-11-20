@@ -5,13 +5,9 @@ import IcEth from "../../assets/icons/tokens/ic-eth.svg";
 import IcKlay from "../../assets/icons/tokens/ic-klay.svg";
 import IcInvi from "../../assets/icons/tokens/ic-invi.svg";
 import IcChevron from "../../assets/icons/Staking/ic-chevronDown.svg";
+import { TokenTicker } from "../../types/TokenTicker";
 
-interface InputTicker {
-  image: string;
-  name: string;
-}
-
-type InputTickersType = Record<string, InputTicker>;
+type InputTickersType = Record<string, TokenTicker>;
 // input값에 붙는 단위 추가시 이미지 및 표시되는 이름 추가 필요
 export const INPUTTICKERS: InputTickersType = {
   aleo: { image: IcAleo, name: "ALEO" },
@@ -26,7 +22,7 @@ export interface InputProps {
   value: string; // input에서 처리할 값
   setValue: (input: string) => void; // 처리값에 대한 set함수
   placeholder?: string;
-  ticker?: InputTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
+  ticker?: TokenTicker; // input값의 단위를 표시하는 ticker 이름 및 아이콘
   leftLabelTexts?: string[]; // 하단 좌측 도움말
   rightLabelTexts?: string[]; // 하단 우측 도움말
   maxBtnOnClick?: () => void;
