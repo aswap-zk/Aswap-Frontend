@@ -3,6 +3,12 @@ import LogoWhite from "../../assets/icons/logo-white.svg";
 import LogoBlack from "../../assets/icons/logo-black.svg";
 import IcWallet from "../../assets/icons/Header/ic-wallet.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { WalletNotConnectedError } from "@demox-labs/aleo-wallet-adapter-base";
+import { useWallet } from "@demox-labs/aleo-wallet-adapter-react";
+import { LeoWalletAdapter } from "@demox-labs/aleo-wallet-adapter-leo";
+import { useCallback } from "react";
+import { Wallet } from "../Wallet/Wallet";
+import { useWalletModal } from "@demox-labs/aleo-wallet-adapter-reactui";
 
 interface HeaderProps {
   type?: string;
@@ -12,6 +18,27 @@ const Header = (props: HeaderProps) => {
   const { type } = props;
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const { publicKey, wallet, disconnect } = useWallet();
+
+  const { setVisible } = useWalletModal();
+
+  const signingAleo = useCallback(async () => {
+    try {
+      if (!publicKey) throw new WalletNotConnectedError();
+
+      const message = "a message to sign";
+
+      const bytes = new TextEncoder().encode(message);
+      const signatureBytes = await (
+        wallet?.adapter as LeoWalletAdapter
+      ).signMessage(bytes);
+      const signature = new TextDecoder().decode(signatureBytes);
+      alert("Signed message: " + signature);
+    } catch {
+      setVisible(true);
+    }
+  }, [wallet, publicKey, setVisible]);
 
   return (
     <Root>
@@ -47,10 +74,11 @@ const Header = (props: HeaderProps) => {
             </>
           )}
         </MenuWrapper>
-        <ConnectBtn>
-          <img src={IcWallet} />
-          <span>Connect wallet</span>
-        </ConnectBtn>
+        {/* <Wallet /> */}
+          <ConnectButton onClick={signingAleo}>
+            <img src={IcWallet} />
+            <span>Connect wallet</span>
+          </ConnectButton>
       </HeaderWrapper>
     </Root>
   );
@@ -94,7 +122,7 @@ const AppMenuItem = styled(MenuItem)<{ $active: boolean }>`
   cursor: pointer;
 `;
 
-const ConnectBtn = styled.div`
+const ConnectButton = styled.div`
   display: flex;
   padding: 8px 20px;
   justify-content: center;

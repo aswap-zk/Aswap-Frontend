@@ -220,12 +220,28 @@
   dependencies:
     eventemitter3 "^4.0.7"
 
+"@demox-labs/aleo-wallet-adapter-leo@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@demox-labs/aleo-wallet-adapter-leo/-/aleo-wallet-adapter-leo-0.0.19.tgz#c1812ad3b98bfbee4626be28172169627e31f4c0"
+  integrity sha512-6aPczdP785RNCfcQPltUWHBpWr6+YIoU8Jk+6gCw19AHc8UENq5WAIzTBR6ub2C3bPYBrGPNxqpNIxvLXHsuHA==
+  dependencies:
+    "@demox-labs/aleo-wallet-adapter-base" "^0.0.20"
+    nanoid "^4.0.0"
+
 "@demox-labs/aleo-wallet-adapter-react@^0.0.19":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@demox-labs/aleo-wallet-adapter-react/-/aleo-wallet-adapter-react-0.0.19.tgz#e2e783b25a96d366828d3b9859be9650c2788106"
   integrity sha512-np00dDXFXBA/okLyaHbyJfCsTgCr33ltBPy3L1+1TaL69c6WUuOCn5pNA6V+MM1DYWRUZmyNG4nbKPj8u3jhzQ==
   dependencies:
     "@demox-labs/aleo-wallet-adapter-base" "^0.0.20"
+
+"@demox-labs/aleo-wallet-adapter-reactui@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@demox-labs/aleo-wallet-adapter-reactui/-/aleo-wallet-adapter-reactui-0.0.31.tgz#e7f5b4bfba39dc5695076c34a8773bfb087b2fdd"
+  integrity sha512-Qii4YvzIqLLS7+PY87z/+2y/n3ZAc3En9UEWA/nMm0WNL5nO30cExYDGDC7G+lQoHXqGKckF85vX5Tu+KKo7kQ==
+  dependencies:
+    "@demox-labs/aleo-wallet-adapter-base" "^0.0.20"
+    "@demox-labs/aleo-wallet-adapter-react" "^0.0.19"
 
 "@emotion/is-prop-valid@^1.2.1":
   version "1.2.1"
@@ -647,6 +663,11 @@ acorn@^8.9.0:
   version "8.11.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.11.2.tgz#ca0d78b51895be5390a5903c5b3bdcdaf78ae40b"
   integrity sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
 
 ajv@^6.12.4:
   version "6.12.6"
@@ -1317,6 +1338,11 @@ nanoid@^3.3.6:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
   integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
 
+nanoid@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.2.tgz#140b3c5003959adbebf521c170f282c5e7f9fb9e"
+  integrity sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -1682,6 +1708,11 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+
+yarn@^1.22.21:
+  version "1.22.21"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.21.tgz#1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+  integrity sha512-ynXaJsADJ9JiZ84zU25XkPGOvVMmZ5b7tmTSpKURYwgELdjucAOydqIOrOfTxVYcNXe91xvLZwcRh68SR3liCg==
 
 yocto-queue@^0.1.0:
   version "0.1.0"

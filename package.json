@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@demox-labs/aleo-wallet-adapter-base": "^0.0.20",
+    "@demox-labs/aleo-wallet-adapter-leo": "^0.0.19",
     "@demox-labs/aleo-wallet-adapter-react": "^0.0.19",
+    "@demox-labs/aleo-wallet-adapter-reactui": "^0.0.31",
+    "add": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "recoil": "^0.7.7",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
