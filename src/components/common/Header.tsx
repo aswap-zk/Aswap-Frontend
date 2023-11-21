@@ -75,10 +75,12 @@ const Header = (props: HeaderProps) => {
           )}
         </MenuWrapper>
         {/* <Wallet /> */}
+        {type !== "intro" && (
           <ConnectButton onClick={signingAleo}>
             <img src={IcWallet} />
             <span>Connect wallet</span>
           </ConnectButton>
+        )}
       </HeaderWrapper>
     </Root>
   );
