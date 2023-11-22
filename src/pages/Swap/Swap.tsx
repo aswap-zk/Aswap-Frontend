@@ -98,14 +98,12 @@ const Swap = () => {
     <>
       {modalType === "request" && (
         <RequestModal
-          type="Swap"
           approvedHandler={modalApprovedHandler}
           closeModalHandler={closeModalHandler}
         />
       )}
       {modalType === "approved" && (
         <ApprovedModal
-          type="Swap"
           amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
           estimated={{ value: "23.03", ticker: INPUTTICKERS.wEth }}
           closeModalHandler={closeModalHandler}

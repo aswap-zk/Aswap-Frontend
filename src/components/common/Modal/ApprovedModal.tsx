@@ -5,13 +5,13 @@ import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
 import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonApproved.svg";
 import { INPUTTICKERS, Input } from "../Input";
 import { TokenTicker } from "../../../types/TokenTicker";
+import { useLocation } from "react-router-dom";
 
 interface ValueWithToken {
   value: string;
   ticker: TokenTicker;
 }
 interface ApprovedModalProps {
-  type: string;
   amount: ValueWithToken[];
   estimated?: ValueWithToken;
   closeModalHandler: () => void;
@@ -19,7 +19,11 @@ interface ApprovedModalProps {
 }
 
 const ApprovedModal = (props: ApprovedModalProps) => {
-  const { type, amount, estimated, closeModalHandler, confirmHandler } = props;
+  const { amount, estimated, closeModalHandler, confirmHandler } = props;
+
+  const { pathname } = useLocation();
+
+  console.log("pathname", pathname);
 
   return (
     <ModalWrapper closeModalHandler={closeModalHandler}>
@@ -28,7 +32,9 @@ const ApprovedModal = (props: ApprovedModalProps) => {
           <MainContentWrapper>
             <TitleWrapper>
               <TitleText>
-                {type === "Deposit" ? "Depositing tokens" : `${type} Token`}
+                {pathname.includes("deposit") && "Depositing tokens"}
+                {pathname.includes("swap") && "Swap Token"}
+                {pathname.includes("staking") && "Staking Token"}
               </TitleText>
             </TitleWrapper>
             <div>
@@ -80,7 +86,7 @@ const ApprovedModal = (props: ApprovedModalProps) => {
                 confirmHandler();
               }}
             >
-              {type}
+              {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
             </BlueButton>
           </ButtonContainer>
         </SpaceBetweenWrapper>

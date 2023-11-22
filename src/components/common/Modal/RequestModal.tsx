@@ -3,15 +3,17 @@ import ModalWrapper from "./ModalWrapper";
 import { SpaceBetweenWrapper } from "../ContentWrapper";
 import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
 import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonRequest.svg";
+import { useLocation } from "react-router-dom";
 
 interface RequestModalProps {
-  type: string;
   approvedHandler: () => void;
   closeModalHandler: () => void;
 }
 
 const RequestModal = (props: RequestModalProps) => {
-  const { type, approvedHandler, closeModalHandler } = props;
+  const { approvedHandler, closeModalHandler } = props;
+
+  const { pathname } = useLocation();
 
   return (
     <ModalWrapper closeModalHandler={closeModalHandler}>
@@ -55,7 +57,9 @@ const RequestModal = (props: RequestModalProps) => {
             Approve
           </BlueButton>
           <img src={IcButtonPolygon} />
-          <GrayButton>{type}</GrayButton>
+          <GrayButton>
+            {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
+          </GrayButton>
         </ButtonContainer>
       </Container>
     </ModalWrapper>

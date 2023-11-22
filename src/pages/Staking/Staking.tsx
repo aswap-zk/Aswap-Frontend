@@ -79,14 +79,12 @@ const Staking = () => {
     <>
       {modalType === "request" && (
         <RequestModal
-          type="Staking"
           approvedHandler={modalApprovedHandler}
           closeModalHandler={closeModalHandler}
         />
       )}
       {modalType === "approved" && (
         <ApprovedModal
-          type="Staking"
           amount={[{ value: "23.03", ticker: INPUTTICKERS.aleo }]}
           closeModalHandler={closeModalHandler}
           confirmHandler={modalConfirmHanler}

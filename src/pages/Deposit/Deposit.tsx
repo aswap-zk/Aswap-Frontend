@@ -71,14 +71,12 @@ const Deposit = () => {
     <>
       {modalType === "request" && (
         <RequestModal
-          type="Deposit"
           approvedHandler={modalApprovedHandler}
           closeModalHandler={closeModalHandler}
         />
       )}
       {modalType === "approved" && (
         <ApprovedModal
-          type="Deposit"
           amount={[
             { value: "23.03", ticker: INPUTTICKERS.aleo },
             { value: "23.03", ticker: INPUTTICKERS.wEth },
