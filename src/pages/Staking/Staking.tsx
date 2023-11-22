@@ -20,6 +20,9 @@ import IcPolygon from "../../assets/icons/Staking/ic-polygonUp.svg";
 import RequestModal from "../../components/common/Modal/RequestModal";
 import ApprovedModal from "../../components/common/Modal/ApprovedModal";
 import { INPUTTICKERS } from "../../components/common/Input";
+import { useRecoilState } from "recoil";
+import { modalTypeAtom } from "../../atom/modalType";
+import NetworkErrorModal from "../../components/common/Modal/NetworkErrorModal";
 
 const POOL_DUMMY = [
   { value: "123,214,354.63" },
@@ -40,7 +43,7 @@ const POOL_DUMMY = [
 const Staking = () => {
   const [amountInput, setAmountInput] = useState("");
   const [selectedToken, setSelectedToken] = useState("ALEO");
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useRecoilState(modalTypeAtom);
 
   const selectTokenList = ["KLAY", "wETH", "ALEO"];
   const DarkWrapperShadow = {
@@ -68,15 +71,18 @@ const Staking = () => {
   }
   function modalConfirmHanler() {
     console.log("Confirm");
-    setModalType("");
+    setModalType("none");
   }
   function closeModalHandler() {
     console.log("Close");
-    setModalType("");
+    setModalType("none");
   }
 
   return (
     <>
+      {modalType === "error" && (
+        <NetworkErrorModal closeModalHandler={closeModalHandler} />
+      )}
       {modalType === "request" && (
         <RequestModal
           approvedHandler={modalApprovedHandler}

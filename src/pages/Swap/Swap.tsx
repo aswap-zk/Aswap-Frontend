@@ -23,6 +23,9 @@ import {
 } from "../../utils/numberFormatter";
 import RequestModal from "../../components/common/Modal/RequestModal";
 import ApprovedModal from "../../components/common/Modal/ApprovedModal";
+import { useRecoilState } from "recoil";
+import { modalTypeAtom } from "../../atom/modalType";
+import NetworkErrorModal from "../../components/common/Modal/NetworkErrorModal";
 
 const Swap = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -32,7 +35,7 @@ const Swap = () => {
     INPUTTICKERS.aleo,
     INPUTTICKERS.wEth,
   ]);
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useRecoilState(modalTypeAtom);
 
   const aleoToWEthRate = 0.00058;
 
@@ -87,15 +90,18 @@ const Swap = () => {
   }
   function modalConfirmHanler() {
     console.log("Confirm");
-    setModalType("");
+    setModalType("none");
   }
   function closeModalHandler() {
     console.log("Close");
-    setModalType("");
+    setModalType("none");
   }
 
   return (
     <>
+      {modalType === "error" && (
+        <NetworkErrorModal closeModalHandler={closeModalHandler} />
+      )}
       {modalType === "request" && (
         <RequestModal
           approvedHandler={modalApprovedHandler}

@@ -22,12 +22,15 @@ import IcAleo from "../../assets/icons/tokens/ic-aleo.svg";
 import IcWind from "../../assets/icons/Deposit/ic-wind.svg";
 import RequestModal from "../../components/common/Modal/RequestModal";
 import ApprovedModal from "../../components/common/Modal/ApprovedModal";
+import { useRecoilState } from "recoil";
+import { modalTypeAtom } from "../../atom/modalType";
+import NetworkErrorModal from "../../components/common/Modal/NetworkErrorModal";
 
 const Deposit = () => {
   const { pathname } = useLocation();
   const [wEthInput, setWEthInput] = useState("");
   const [aleoInput, setAleoInput] = useState("");
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useRecoilState(modalTypeAtom);
 
   const wEthInputProps = {
     value: wEthInput,
@@ -60,15 +63,18 @@ const Deposit = () => {
   }
   function modalConfirmHanler() {
     console.log("Confirm");
-    setModalType("");
+    setModalType("none");
   }
   function closeModalHandler() {
     console.log("Close");
-    setModalType("");
+    setModalType("none");
   }
 
   return (
     <>
+      {modalType === "error" && (
+        <NetworkErrorModal closeModalHandler={closeModalHandler} />
+      )}
       {modalType === "request" && (
         <RequestModal
           approvedHandler={modalApprovedHandler}
