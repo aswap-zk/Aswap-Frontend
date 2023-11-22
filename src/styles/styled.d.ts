@@ -12,12 +12,14 @@ declare module "styled-components" {
       Image_Title: SerializedStyles;
       Title_Medium: SerializedStyles;
       Title_Medium_2: SerializedStyles;
+      Title_Medium_3: SerializedStyles;
       Body_Text_Large: SerializedStyles;
       Body_Text_Large_2: SerializedStyles;
       Body_Text_Medium: SerializedStyles;
       Body_Text_Medium_2: SerializedStyles;
       Body_Text_Medium_3: SerializedStyles;
       Body_Text_Small: SerializedStyles;
+      Body_Text_Small_2: SerializedStyles;
       Label_Large: SerializedStyles;
       Label_Medium: SerializedStyles;
       Label_Medium_2: SerializedStyles;

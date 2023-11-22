@@ -60,6 +60,14 @@ const fonts = {
     line-height: 34px; /* 154545% */
     letter-spacing: -0.44px;
   `,
+  Title_Medium_3: css`
+    font-family: "Montserrat";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 34px; /* 154545% */
+    letter-spacing: -0.44px;
+  `,
   Title_Small: css`
     font-family: "Montserrat";
     font-size: 18px;
@@ -108,6 +116,13 @@ const fonts = {
     font-style: normal;
     font-weight: 500;
     line-height: 25px;
+  `,
+  Body_Text_Small_2: css`
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 171.429% */
   `,
   Label_Large: css`
     font-family: "Montserrat";
