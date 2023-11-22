@@ -13,7 +13,10 @@ import { modalTypeAtom } from "../../atom/modalType";
 import { walletStateAtom } from "../../atom/wallet";
 import IcInfo from "../../assets/icons/Header/ic-info.svg";
 import IcLeo from "../../assets/icons/Header/ic-leoCircle.svg";
+import IcClose from "../../assets/icons/Header/ic-closeWhite.svg";
+import IcCopy from "../../assets/icons/Header/ic-copy.svg";
 import { truncateString } from "../../utils/walletAddressFormatter";
+import IcLeoLogo from "../../assets/icons/ic-leoLogo.svg";
 
 interface HeaderProps {
   type?: string;
@@ -55,75 +58,101 @@ const Header = (props: HeaderProps) => {
   }, [wallet, publicKey, setVisible]);
 
   return (
-    <Root>
-      <HeaderWrapper>
-        <MenuWrapper>
-          {type === "intro" ? (
+    <>
+      <Root>
+        <HeaderWrapper>
+          <MenuWrapper>
+            {type === "intro" ? (
+              <>
+                <Logo src={LogoWhite} onClick={() => navigate("/")} />
+                <MenuItem>Docs</MenuItem>
+                <MenuItem>LV99</MenuItem>
+              </>
+            ) : (
+              <>
+                <Logo src={LogoBlack} onClick={() => navigate("/")} />
+                <AppMenuItem
+                  onClick={() => navigate("/swap")}
+                  $active={pathname.includes("swap") ? true : false}
+                >
+                  Swap
+                </AppMenuItem>
+                <AppMenuItem
+                  onClick={() => navigate("/deposit")}
+                  $active={pathname.includes("deposit") ? true : false}
+                >
+                  Deposit
+                </AppMenuItem>
+                <AppMenuItem
+                  onClick={() => navigate("/staking")}
+                  $active={pathname.includes("staking") ? true : false}
+                >
+                  Staking
+                </AppMenuItem>
+              </>
+            )}
+          </MenuWrapper>
+          {type !== "intro" && (
             <>
-              <Logo src={LogoWhite} onClick={() => navigate("/")} />
-              <MenuItem>Docs</MenuItem>
-              <MenuItem>LV99</MenuItem>
-            </>
-          ) : (
-            <>
-              <Logo src={LogoBlack} onClick={() => navigate("/")} />
-              <AppMenuItem
-                onClick={() => navigate("/swap")}
-                $active={pathname.includes("swap") ? true : false}
+              <ConnectButton
+                onClick={signingAleo}
+                $walletStatus={walletInfo.status}
               >
-                Swap
-              </AppMenuItem>
-              <AppMenuItem
-                onClick={() => navigate("/deposit")}
-                $active={pathname.includes("deposit") ? true : false}
-              >
-                Deposit
-              </AppMenuItem>
-              <AppMenuItem
-                onClick={() => navigate("/staking")}
-                $active={pathname.includes("staking") ? true : false}
-              >
-                Staking
-              </AppMenuItem>
+                <img
+                  src={
+                    walletInfo.status === "success"
+                      ? IcLeo
+                      : walletInfo.status === "fail"
+                      ? IcInfo
+                      : IcWallet
+                  }
+                />
+                <span>
+                  {walletInfo.status === "success"
+                    ? truncateString(walletInfo.address)
+                    : walletInfo.status === "fail"
+                    ? "Wrong Network"
+                    : "Connect wallet"}
+                </span>
+              </ConnectButton>
+
+              <WalletWrapper>
+                <WalletContent>
+                  <WalletTitleWrapper>
+                    <span>Connected Wallet</span>
+                    <img src={IcClose} />
+                  </WalletTitleWrapper>
+                  <WalletItem>
+                    <WalletNetworkWrapper>
+                      <img src={IcLeoLogo} />
+                      <span>LEO</span>
+                    </WalletNetworkWrapper>
+                    <WalletAddressWrapper>
+                      <WalletSubTitleText>Address</WalletSubTitleText>
+                      <WalletAddress>
+                        {truncateString(walletInfo.address, 10, 4)}
+                      </WalletAddress>
+                      <CopyIconWrapper
+                        onClick={() =>
+                          navigator.clipboard.writeText(walletInfo.address)
+                        }
+                      >
+                        <img src={IcCopy} />
+                      </CopyIconWrapper>
+                    </WalletAddressWrapper>
+                  </WalletItem>
+                  <DisconnectButton>Disconnect</DisconnectButton>
+                </WalletContent>
+              </WalletWrapper>
             </>
           )}
-        </MenuWrapper>
-        {type !== "intro" && (
-          <ConnectButton
-            onClick={signingAleo}
-            $walletStatus={walletInfo.status}
-          >
-            <img
-              src={
-                walletInfo.status === "success"
-                  ? IcLeo
-                  : walletInfo.status === "fail"
-                  ? IcInfo
-                  : IcWallet
-              }
-            />
-            <span>
-              {walletInfo.status === "success"
-                ? truncateString(walletInfo.address)
-                : walletInfo.status === "fail"
-                ? "Wrong Network"
-                : "Connect wallet"}
-            </span>
-          </ConnectButton>
-        )}
-      </HeaderWrapper>
-    </Root>
+        </HeaderWrapper>
+      </Root>
+    </>
   );
 };
 
 export default Header;
-
-const Root = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 0;
-  padding: 12px 30px;
-`;
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -176,5 +205,115 @@ const ConnectButton = styled.div<{
   span {
     color: #fff;
     ${({ theme }) => theme.fonts.Body_Text_Large};
+  }
+`;
+
+const WalletContent = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 25px;
+
+  border-radius: 20px;
+  background: #15151a;
+  box-shadow: 0px 0px 20px 0px rgba(9, 9, 10, 0.1);
+  color: #fff;
+`;
+
+const WalletWrapper = styled.div`
+  display: none;
+  width: 460px;
+`;
+
+const WalletTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+
+  span {
+    ${({ theme }) => theme.fonts.Body_Text_Large};
+  }
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const WalletItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 23px;
+
+  border-radius: 14px;
+  background: #33343e;
+`;
+
+const WalletNetworkWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+
+  span {
+    ${({ theme }) => theme.fonts.Body_Text_Large};
+  }
+`;
+
+const WalletAddressWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+const WalletSubTitleText = styled.span`
+  ${({ theme }) => theme.fonts.Label_Medium_2};
+  color: #bdbdc5;
+`;
+
+const WalletAddress = styled.span`
+  ${({ theme }) => theme.fonts.Body_Text_Medium_3};
+`;
+
+const CopyIconWrapper = styled.div`
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid #15151a;
+  background: #292b33;
+  img {
+    width: 16px;
+    height: 16px;
+  }
+  cursor: pointer;
+`;
+
+const DisconnectButton = styled.div`
+  padding: 10px 16px;
+
+  ${({ theme }) => theme.fonts.Body_Text_Small};
+  color: #e8e8ee;
+  border-radius: 10px;
+  background: #3e404c;
+`;
+
+const Root = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 0;
+  padding: 12px 30px;
+
+  ${ConnectButton}:hover + ${WalletWrapper} {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 30px;
+    display: flex;
   }
 `;
