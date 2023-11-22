@@ -6,10 +6,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { WalletNotConnectedError } from "@demox-labs/aleo-wallet-adapter-base";
 import { useWallet } from "@demox-labs/aleo-wallet-adapter-react";
 import { LeoWalletAdapter } from "@demox-labs/aleo-wallet-adapter-leo";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useWalletModal } from "@demox-labs/aleo-wallet-adapter-reactui";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { modalTypeAtom } from "../../atom/modalType";
+import { walletStateAtom } from "../../atom/wallet";
+import IcInfo from "../../assets/icons/Header/ic-info.svg";
+import IcLeo from "../../assets/icons/Header/ic-leoCircle.svg";
+import { truncateString } from "../../utils/walletAddressFormatter";
 
 interface HeaderProps {
   type?: string;
@@ -21,23 +25,30 @@ const Header = (props: HeaderProps) => {
   const navigate = useNavigate();
 
   const setModalType = useSetRecoilState(modalTypeAtom);
+  const [walletInfo, setWalletInfo] = useRecoilState(walletStateAtom);
   const { publicKey, wallet, disconnect } = useWallet();
   const { setVisible } = useWalletModal();
+
+  useEffect(() => {
+    if (publicKey === null) {
+      setWalletInfo({ status: "initial", address: "" });
+    } else {
+      setWalletInfo({ status: "success", address: publicKey });
+    }
+  }, [publicKey]);
 
   const signingAleo = useCallback(async () => {
     try {
       if (!publicKey) throw new WalletNotConnectedError();
 
-      //   const message = "a message to sign";
+      const message = "a message to sign";
+      const bytes = new TextEncoder().encode(message);
+      const signatureBytes = await (
+        wallet?.adapter as LeoWalletAdapter
+      ).signMessage(bytes);
+      const signature = new TextDecoder().decode(signatureBytes);
 
-      //   const bytes = new TextEncoder().encode(message);
-      //   const signatureBytes = await (
-      //     wallet?.adapter as LeoWalletAdapter
-      //   ).signMessage(bytes);
-      //   const signature = new TextDecoder().decode(signatureBytes);
-      //   alert("Signed message: " + signature);
-
-      setModalType("error");
+      setWalletInfo({ status: "success", address: signature });
     } catch {
       setVisible(true);
     }
@@ -77,11 +88,27 @@ const Header = (props: HeaderProps) => {
             </>
           )}
         </MenuWrapper>
-        {/* <Wallet /> */}
         {type !== "intro" && (
-          <ConnectButton onClick={signingAleo}>
-            <img src={IcWallet} />
-            <span>Connect wallet</span>
+          <ConnectButton
+            onClick={signingAleo}
+            $walletStatus={walletInfo.status}
+          >
+            <img
+              src={
+                walletInfo.status === "success"
+                  ? IcLeo
+                  : walletInfo.status === "fail"
+                  ? IcInfo
+                  : IcWallet
+              }
+            />
+            <span>
+              {walletInfo.status === "success"
+                ? truncateString(walletInfo.address)
+                : walletInfo.status === "fail"
+                ? "Wrong Network"
+                : "Connect wallet"}
+            </span>
           </ConnectButton>
         )}
       </HeaderWrapper>
@@ -127,16 +154,25 @@ const AppMenuItem = styled(MenuItem)<{ $active: boolean }>`
   cursor: pointer;
 `;
 
-const ConnectButton = styled.div`
+const ConnectButton = styled.div<{
+  $walletStatus?: "initial" | "fail" | "success";
+}>`
   display: flex;
   padding: 8px 20px;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  cursor: pointer;
+  cursor: ${({ $walletStatus }) =>
+    $walletStatus === "fail" ? "auto" : "pointer"};
 
   border-radius: 20px;
-  background: #6047f4;
+  background: ${({ $walletStatus }) =>
+    $walletStatus === "success"
+      ? "#33343E"
+      : $walletStatus === "fail"
+      ? "#FF7979"
+      : "#6047f4"};
+
   span {
     color: #fff;
     ${({ theme }) => theme.fonts.Body_Text_Large};
