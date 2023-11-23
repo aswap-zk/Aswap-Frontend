@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { WalletNotConnectedError } from "@demox-labs/aleo-wallet-adapter-base";
 import { useWallet } from "@demox-labs/aleo-wallet-adapter-react";
 import { LeoWalletAdapter } from "@demox-labs/aleo-wallet-adapter-leo";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useWalletModal } from "@demox-labs/aleo-wallet-adapter-reactui";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { modalTypeAtom } from "../../atom/modalType";
@@ -30,6 +30,7 @@ const Header = (props: HeaderProps) => {
   const setModalType = useSetRecoilState(modalTypeAtom);
   const [walletInfo, setWalletInfo] = useRecoilState(walletStateAtom);
   const { publicKey, wallet, disconnect } = useWallet();
+  const [isWalletVisible, setIsWalletVisible] = useState(false);
   const { setVisible } = useWalletModal();
 
   useEffect(() => {
@@ -56,6 +57,10 @@ const Header = (props: HeaderProps) => {
       setVisible(true);
     }
   }, [wallet, publicKey, setVisible]);
+
+  function toggleWalletVisibility() {
+    setIsWalletVisible(!isWalletVisible);
+  }
 
   return (
     <>
@@ -93,9 +98,26 @@ const Header = (props: HeaderProps) => {
             )}
           </MenuWrapper>
           {type !== "intro" && (
-            <>
+            <WalletContainer
+              onMouseLeave={
+                walletInfo.status === "success"
+                  ? () => setIsWalletVisible(false)
+                  : () => {}
+              }
+            >
               <ConnectButton
-                onClick={signingAleo}
+                onMouseEnter={
+                  walletInfo.status === "success"
+                    ? () => setIsWalletVisible(true)
+                    : () => {}
+                }
+                onClick={
+                  walletInfo.status === "initial"
+                    ? signingAleo
+                    : walletInfo.status === "success"
+                    ? toggleWalletVisibility
+                    : () => {}
+                }
                 $walletStatus={walletInfo.status}
               >
                 <img
@@ -115,36 +137,39 @@ const Header = (props: HeaderProps) => {
                     : "Connect wallet"}
                 </span>
               </ConnectButton>
-
-              <WalletWrapper>
-                <WalletContent>
-                  <WalletTitleWrapper>
-                    <span>Connected Wallet</span>
-                    <img src={IcClose} />
-                  </WalletTitleWrapper>
-                  <WalletItem>
-                    <WalletNetworkWrapper>
-                      <img src={IcLeoLogo} />
-                      <span>LEO</span>
-                    </WalletNetworkWrapper>
-                    <WalletAddressWrapper>
-                      <WalletSubTitleText>Address</WalletSubTitleText>
-                      <WalletAddress>
-                        {truncateString(walletInfo.address, 10, 4)}
-                      </WalletAddress>
-                      <CopyIconWrapper
-                        onClick={() =>
-                          navigator.clipboard.writeText(walletInfo.address)
-                        }
-                      >
-                        <img src={IcCopy} />
-                      </CopyIconWrapper>
-                    </WalletAddressWrapper>
-                  </WalletItem>
-                  <DisconnectButton>Disconnect</DisconnectButton>
-                </WalletContent>
-              </WalletWrapper>
-            </>
+              {isWalletVisible && (
+                <WalletInfoWrapper>
+                  <WalletInfoContent>
+                    <WalletTitleWrapper>
+                      <span>Connected Wallet</span>
+                      <img
+                        src={IcClose}
+                        onClick={() => setIsWalletVisible(false)}
+                      />
+                    </WalletTitleWrapper>
+                    <WalletItem>
+                      <WalletNetworkWrapper>
+                        <img src={IcLeoLogo} />
+                        <span>LEO</span>
+                      </WalletNetworkWrapper>
+                      <WalletAddressWrapper>
+                        <WalletSubTitleText>Address</WalletSubTitleText>
+                        <WalletAddress>
+                          {truncateString(walletInfo.address, 10, 4)}
+                        </WalletAddress>
+                        <CopyIconWrapper
+                          onClick={() =>
+                            navigator.clipboard.writeText(walletInfo.address)
+                          }
+                        >
+                          <img src={IcCopy} />
+                        </CopyIconWrapper>
+                      </WalletAddressWrapper>
+                    </WalletItem>
+                  </WalletInfoContent>
+                </WalletInfoWrapper>
+              )}
+            </WalletContainer>
           )}
         </HeaderWrapper>
       </Root>
@@ -158,7 +183,7 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const MenuWrapper = styled.div`
@@ -183,9 +208,18 @@ const AppMenuItem = styled(MenuItem)<{ $active: boolean }>`
   cursor: pointer;
 `;
 
+const WalletContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+`;
+
 const ConnectButton = styled.div<{
   $walletStatus?: "initial" | "fail" | "success";
 }>`
+  /* max-width: 197px; */
   display: flex;
   padding: 8px 20px;
   justify-content: center;
@@ -208,7 +242,7 @@ const ConnectButton = styled.div<{
   }
 `;
 
-const WalletContent = styled.div`
+const WalletInfoContent = styled.div`
   width: 100%;
   display: flex;
   padding: 30px;
@@ -222,8 +256,8 @@ const WalletContent = styled.div`
   color: #fff;
 `;
 
-const WalletWrapper = styled.div`
-  display: none;
+const WalletInfoWrapper = styled.div`
+  display: flex;
   width: 460px;
 `;
 
@@ -239,6 +273,8 @@ const WalletTitleWrapper = styled.div`
   img {
     width: 20px;
     height: 20px;
+
+    cursor: pointer;
   }
 `;
 
@@ -302,6 +338,7 @@ const DisconnectButton = styled.div`
   color: #e8e8ee;
   border-radius: 10px;
   background: #3e404c;
+  cursor: pointer;
 `;
 
 const Root = styled.div`
@@ -310,10 +347,7 @@ const Root = styled.div`
   top: 0;
   padding: 12px 30px;
 
-  ${ConnectButton}:hover + ${WalletWrapper} {
-    position: absolute;
-    top: calc(100% + 12px);
-    right: 30px;
+  /* ${WalletContainer}:hover ${WalletInfoWrapper} {
     display: flex;
-  }
+  } */
 `;
