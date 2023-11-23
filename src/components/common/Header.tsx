@@ -29,8 +29,8 @@ const Header = (props: HeaderProps) => {
 
   const setModalType = useSetRecoilState(modalTypeAtom);
   const [walletInfo, setWalletInfo] = useRecoilState(walletStateAtom);
-  const { publicKey, wallet, disconnect } = useWallet();
   const [isWalletVisible, setIsWalletVisible] = useState(false);
+  const { publicKey, wallet, disconnect, disconnecting } = useWallet();
   const { setVisible } = useWalletModal();
 
   useEffect(() => {
@@ -60,6 +60,16 @@ const Header = (props: HeaderProps) => {
 
   function toggleWalletVisibility() {
     setIsWalletVisible(!isWalletVisible);
+  }
+
+  function handleDisconnect() {
+    disconnect()
+      .then(() => {
+        console.log(`publickKey: ${publicKey}\nwallet: ${wallet}`);
+        setWalletInfo({ status: "initial", address: "" });
+        setIsWalletVisible(false);
+      })
+      .catch(() => {});
   }
 
   return (
@@ -166,6 +176,9 @@ const Header = (props: HeaderProps) => {
                         </CopyIconWrapper>
                       </WalletAddressWrapper>
                     </WalletItem>
+                    <DisconnectButton onClick={handleDisconnect}>
+                      Disconnect
+                    </DisconnectButton>
                   </WalletInfoContent>
                 </WalletInfoWrapper>
               )}
