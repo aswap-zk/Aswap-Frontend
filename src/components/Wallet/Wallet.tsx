@@ -77,6 +77,7 @@ const Wallet = () => {
             (walletInfo.status === "success" && toggleWalletVisibility())
           }
           $walletStatus={walletInfo.status}
+          $isWalletVisible={isWalletVisible}
         >
           <img
             src={
@@ -144,6 +145,7 @@ const WalletContainer = styled.div`
 
 const ConnectButton = styled.div<{
   $walletStatus?: "initial" | "fail" | "success";
+  $isWalletVisible: boolean;
 }>`
   display: flex;
   padding: 8px 20px;
@@ -154,9 +156,11 @@ const ConnectButton = styled.div<{
     $walletStatus === "fail" ? "auto" : "pointer"};
 
   border-radius: 20px;
-  background: ${({ $walletStatus }) =>
+  background: ${({ $walletStatus, $isWalletVisible }) =>
     $walletStatus === "success"
-      ? "#33343E"
+      ? $isWalletVisible
+        ? "#15151A"
+        : "#33343E"
       : $walletStatus === "fail"
       ? "#FF7979"
       : "#6047f4"};

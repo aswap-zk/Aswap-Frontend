@@ -216,7 +216,6 @@ const SelectWrapper = styled.div`
   border-radius: 20px;
   border: 1px solid #e8e8ee;
   background: #fff;
-  box-shadow: 0px 2px 10px 0px rgba(184, 184, 184, 0.3);
   ${({ theme }) => theme.fonts.Body_Text_Large};
 
   img {

@@ -15,7 +15,7 @@ const Main = () => {
       </VideoWrapper>
       <Header type="intro" />
       <ContentWrapper>
-        <TitleText>Abundant Liquidity DEX on ALEO</TitleText>
+        <TitleText>{"Abundant Liquidity DEX\non ALEO"}</TitleText>
         <SubText>Keep cross-chained assets securely</SubText>
         <Button onClick={() => navigate("/swap")}>Launch app</Button>
       </ContentWrapper>
@@ -49,7 +49,7 @@ const Video = styled.video`
 const ContentWrapper = styled.div`
   position: absolute;
   padding-left: 180px;
-  bottom: 30%;
+  bottom: 35%;
 
   display: flex;
   flex-direction: column;
@@ -60,6 +60,8 @@ const ContentWrapper = styled.div`
 const TitleText = styled.span`
   font-family: "Monument";
   font-size: 80px;
+  line-height: 94px;
+  white-space: pre-line;
   text-shadow: 5px 7px 20px rgba(0, 0, 0, 0.1),
     20px 30px 36px rgba(0, 0, 0, 0.09), 46px 67px 49px rgba(0, 0, 0, 0.05),
     81px 119px 58px rgba(0, 0, 0, 0.01), 127px 186px 63px rgba(0, 0, 0, 0);
