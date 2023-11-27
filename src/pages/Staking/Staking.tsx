@@ -23,6 +23,7 @@ import { INPUTTICKERS } from "../../components/common/Input";
 import { useRecoilState } from "recoil";
 import { modalTypeAtom } from "../../atom/modalType";
 import NetworkErrorModal from "../../components/common/Modal/NetworkErrorModal";
+import IcTooltip from "../../assets/icons/Staking/ic-tooltipRect.svg";
 
 const POOL_DUMMY = [
   { value: "123,214,354.63" },
@@ -44,6 +45,7 @@ const Staking = () => {
   const [amountInput, setAmountInput] = useState("");
   const [selectedToken, setSelectedToken] = useState("ALEO");
   const [modalType, setModalType] = useRecoilState(modalTypeAtom);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const selectTokenList = ["KLAY", "wETH", "ALEO"];
   const DarkWrapperShadow = {
@@ -104,7 +106,16 @@ const Staking = () => {
             <AmountInnerWrapper>
               <SpaceBetweenWrapper>
                 <BodyMedium2Text>Staked amount</BodyMedium2Text>
-                <HelpIcon src={IcHelp} alt="Question mark Icon" />
+                <HelpIcon
+                  src={IcHelp}
+                  alt="Question mark Icon"
+                  onMouseEnter={() => {
+                    setIsTooltipVisible(true);
+                  }}
+                  onMouseLeave={() => {
+                    setIsTooltipVisible(false);
+                  }}
+                />
               </SpaceBetweenWrapper>
               <SpaceBetweenWrapper>
                 <TitleMediumText>4,605</TitleMediumText>
@@ -113,6 +124,12 @@ const Staking = () => {
                   <span>ALEO</span>
                 </Ticker>
               </SpaceBetweenWrapper>
+              {isTooltipVisible && (
+                <ToolTipWrapper>
+                  <img src={IcTooltip} />
+                  <div>The amount you have staked in the validator pool.</div>
+                </ToolTipWrapper>
+              )}
             </AmountInnerWrapper>
             <ContentWrapper>
               <ContentTitle>Amount to Stake</ContentTitle>
@@ -220,12 +237,36 @@ const AmountWrapper = styled.div`
 `;
 
 const AmountInnerWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 26px 35px 21px 35px;
 
   color: #fff;
+`;
+
+const ToolTipWrapper = styled.div`
+  position: absolute;
+  top: 0px;
+  right: -388px;
+
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 12px;
+    height: 14px;
+  }
+  div {
+    padding: 24px;
+    ${({ theme }) => theme.fonts.Body_Text_Medium_2};
+    color: #fff;
+
+    border-radius: 20px;
+    background: var(--primary-neutral-30, #3e404c);
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.12);
+  }
 `;
 
 const BodyMediumText = styled.span`
