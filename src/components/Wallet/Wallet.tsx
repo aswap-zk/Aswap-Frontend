@@ -17,7 +17,7 @@ import IcLeoLogo from "../../assets/icons/ic-leoLogo.svg";
 const Wallet = () => {
   const [walletInfo, setWalletInfo] = useRecoilState(walletStateAtom);
   const [isWalletVisible, setIsWalletVisible] = useState(false);
-  const { publicKey, wallet, disconnect, disconnecting } = useWallet();
+  const { publicKey, wallet, disconnect } = useWallet();
   const { setVisible } = useWalletModal();
 
   useEffect(() => {

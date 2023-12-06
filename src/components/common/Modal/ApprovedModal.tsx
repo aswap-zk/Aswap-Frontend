@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import { SpaceBetweenWrapper } from "../ContentWrapper";
-import IcInfo from "../../../assets/icons/Modal/ic-info.svg";
 import IcButtonPolygon from "../../../assets/icons/Modal/ic-buttonPolygonApproved.svg";
-import { INPUTTICKERS, Input } from "../Input";
+import { Input } from "../Input";
 import { TokenTicker } from "../../../types/TokenTicker";
 import { useLocation } from "react-router-dom";
 
@@ -114,15 +113,15 @@ const TitleText = styled.span`
   ${({ theme }) => theme.fonts.Title_Medium_2};
 `;
 
-const SubText = styled.span`
-  ${({ theme }) => theme.fonts.Label_Medium};
-  color: #4a5967;
-`;
+// const SubText = styled.span`
+//   ${({ theme }) => theme.fonts.Label_Medium};
+//   color: #4a5967;
+// `;
 
-const ContentText = styled.span`
-  ${({ theme }) => theme.fonts.Body_Text_Small};
-  color: #3e404c;
-`;
+// const ContentText = styled.span`
+//   ${({ theme }) => theme.fonts.Body_Text_Small};
+//   color: #3e404c;
+// `;
 
 const MainContentWrapper = styled.div`
   display: flex;
