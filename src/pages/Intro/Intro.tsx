@@ -3,7 +3,7 @@ import IntroVideo from "../../assets/video/intro.mp4";
 import Header from "../../components/common/Header";
 import { useNavigate } from "react-router-dom";
 
-const Main = () => {
+const Intro = () => {
   const navigate = useNavigate();
 
   return (
@@ -23,7 +23,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Intro;
 
 const Root = styled.div`
   width: 100%;
@@ -49,8 +49,8 @@ const Video = styled.video`
 const ContentWrapper = styled.div`
   position: absolute;
   padding-left: 180px;
-  bottom: 35%;
-
+  top: 50%;
+  transform: translate(0, -50%);
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -59,8 +59,9 @@ const ContentWrapper = styled.div`
 
 const TitleText = styled.span`
   font-family: "Monument";
-  font-size: 80px;
+  font-size: 72px;
   line-height: 94px;
+  letter-spacing: -6px;
   white-space: pre-line;
   text-shadow: 5px 7px 20px rgba(0, 0, 0, 0.1),
     20px 30px 36px rgba(0, 0, 0, 0.09), 46px 67px 49px rgba(0, 0, 0, 0.05),
